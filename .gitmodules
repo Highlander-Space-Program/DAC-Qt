@@ -1,0 +1,3 @@
+[submodule "extern/DAC-Core"]
+	path = extern/DAC-Core
+	url = git@github.com:Highlander-Space-Program/DAC-Core.git
