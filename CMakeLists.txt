@@ -43,12 +43,23 @@ else()
     endif()
 endif()
 
-target_link_libraries(DAC-Qt PRIVATE
-  Qt${QT_VERSION_MAJOR}::Widgets
-  Qt${QT_VERSION_MAJOR}::Charts
-  nlohmann_json::nlohmann_json
-  LabJackM
-)
+if(WIN32)
+    target_include_directories(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
+    target_link_libraries(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+
+    target_link_libraries(DAC-Qt PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Charts
+    nlohmann_json::nlohmann_json
+    )
+else()
+    target_link_libraries(DAC-Qt PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Charts
+    nlohmann_json::nlohmann_json
+    LabJackM
+    )
+endif()
 
 set_target_properties(DAC-Qt PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER com.MSP.DAC-Qt
