@@ -78,3 +78,5 @@ install(TARGETS DAC-Qt
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(DAC-Qt)
 endif()
+
+configure_file("data/pt_data.json" "data/pt_data.json" COPYONLY)
