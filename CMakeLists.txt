@@ -24,6 +24,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(DAC-Qt
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        centralwidget.h centralwidget.cpp
+        settingswidget.h settingswidget.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET DAC-Qt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

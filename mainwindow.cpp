@@ -1,94 +1,41 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-#include <fstream>
-#include <string>
-#include <nlohmann/json.hpp>
-#include <QFile>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QDateTimeAxis>
-#include <QtCharts/QValueAxis>
-#include <QDebug>
-#include <QDateTime>
-
-#include <LabJackM.h>
+#include "centralwidget.h"
 
 QT_BEGIN_NAMESPACE
-
-using json = nlohmann::json;
-using namespace std::chrono;
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
+  , stackWidget_{new QStackedWidget{this}}
+  , centralWidget_{new CentralWidget{this}}
+  , settingsWidget_{new SettingsWidget{this}}
 {
   ui->setupUi(this);
 
-  charts.push_back(createPtChart());
-  chartView = new QChartView(charts.front());
+  stackWidget_->addWidget(centralWidget_);
+  stackWidget_->addWidget(settingsWidget_);
 
-  chartView->setRenderHint(QPainter::Antialiasing);
-  ui->gridLayout->addWidget(chartView);
+  setCentralWidget(stackWidget_);
+
+  connect(centralWidget_, &CentralWidget::settingsButtonClicked,
+          this, &MainWindow::openSettings);
+  connect(settingsWidget_, &SettingsWidget::settingsClose,
+          this, &MainWindow::closeSettings);
 }
 
 MainWindow::~MainWindow()
 {
+  delete stackWidget_;
   delete ui;
 }
 
-QChart* MainWindow::createPtChart() {
-  int error, handle;
-  error = LJM_OpenS("T7", "USB", "ANY", &handle);
-  if (error) {
-    char errorStr[LJM_MAX_NAME_SIZE];
-    LJM_ErrorToString(error, errorStr);
-    qCritical() << "Error connecting to DAQ device: " << errorStr << Qt::endl;
-  } else {
-    int deviceType,
-      connectionType,
-      serialNumber;
-    LJM_GetHandleInfo(handle, &deviceType, &connectionType, &serialNumber, nullptr, nullptr, nullptr);
-    qInfo() << "Connected to DAQ device: " << deviceType << " : " << serialNumber << Qt::endl;
-  }
-
-  // Read from json
-  json input;
-  std::ifstream f("data/pt_data.json", std::ios::in);
-  if (f.fail()) {
-    qWarning() << "Error opening pressure transducer data file\n";
-    return nullptr;
-  }
-  input = json::parse(f);
-
-  // Create chart
-  QChart *chart = new QChart();
-  chart->setTitle("Pressure vs. Time");
-
-  // Setup data series
-  QLineSeries *series = new QLineSeries();
-  for (const auto& point : input["data"]) {
-    QDateTime dt;
-    microseconds timestamp(static_cast<long long>(static_cast<double>(point[0])*1000000.0));
-    dt.setMSecsSinceEpoch(duration_cast<milliseconds>(timestamp).count());
-    series->append(dt.toMSecsSinceEpoch(), point[1].get<double>());
-  }
-  f.close();
-  chart->addSeries(series);
-
-  // Setup axes
-  QDateTimeAxis *xaxis = new QDateTimeAxis();
-  xaxis->setFormat("hh:mm:ss.zzz");
-  xaxis->setTitleText("Timestamp");
-  chart->addAxis(xaxis, Qt::AlignBottom);
-  series->attachAxis(xaxis); // Attach axis *after* adding it to the chart
-
-  QValueAxis *yaxis = new QValueAxis();
-  yaxis->setLabelFormat("%i");
-  yaxis->setTitleText("Pressure (psi)");
-  chart->addAxis(yaxis, Qt::AlignLeft);
-  series->attachAxis(yaxis);
-
-  return chart;
+void MainWindow::openSettings() {
+  stackWidget_->setCurrentIndex(stackWidget_->indexOf(settingsWidget_));
+}
+void MainWindow::closeSettings() {
+  stackWidget_->setCurrentIndex(stackWidget_->indexOf(centralWidget_));
 }
 
 QT_END_NAMESPACE

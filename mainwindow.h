@@ -2,14 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtCharts/QChart>
-#include <QtCharts/QChartView>
-#include <QGridLayout>
+#include <QStackedWidget>
+
+#include "centralwidget.h"
+#include "settingswidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
 
 class MainWindow : public QMainWindow
 {
@@ -21,9 +21,14 @@ public:
 
 private:
   Ui::MainWindow *ui;
-  QChartView *chartView;
-  std::vector<QChart*> charts;
 
-  QChart* createPtChart();
+  QStackedWidget* stackWidget_;
+
+  CentralWidget* centralWidget_;
+  SettingsWidget* settingsWidget_;
+
+private slots:
+  void openSettings();
+  void closeSettings();
 };
 #endif // MAINWINDOW_H
