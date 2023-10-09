@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <LabJackM.h>
+#include <QtWidgets>
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +23,16 @@ int main(int argc, char *argv[])
     }
 
   QApplication a(argc, argv);
-  MainWindow w;
+  QWidget w;
+  QLabel *label = new QLabel(QApplication::translate("windowlayout", "Name:"));
+  QLineEdit *lineEdit = new QLineEdit();
+
+  QHBoxLayout *layout = new QHBoxLayout();
+  layout->addWidget(label);
+  layout->addWidget(lineEdit);
+  w.setLayout(layout);
+  w.setWindowTitle(
+      QApplication::translate("windowlayout", "Window layout"));
   w.show();
   return a.exec();
 }
