@@ -6,6 +6,8 @@
 #include <LabJackM.h>
 #include <QtWidgets>
 
+
+
 int main(int argc, char *argv[])
 {
   int error, handle;
@@ -24,12 +26,17 @@ int main(int argc, char *argv[])
 
   QApplication a(argc, argv);
   QWidget w;
-  QLabel *label = new QLabel(QApplication::translate("windowlayout", "Name:"));
-  QLineEdit *lineEdit = new QLineEdit();
+  QPushButton *AlexButton = new QPushButton();
+  AlexButton->setText("AlexButton");
+
+
+  QHBoxLayout *layout2 = new QHBoxLayout();
+  QPushButton *Back = new QPushButton();
 
   QHBoxLayout *layout = new QHBoxLayout();
-  layout->addWidget(label);
-  layout->addWidget(lineEdit);
+  layout->addWidget(AlexButton);
+  layout2->addWidget(Back);
+  connect(AlexButton, SIGNAL(clicked()), &layout, SLOT(w.setLayout(layout2)));
   w.setLayout(layout);
   w.setWindowTitle(
       QApplication::translate("windowlayout", "Window layout"));
