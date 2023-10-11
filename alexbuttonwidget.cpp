@@ -11,6 +11,6 @@ AlexButtonWidget::~AlexButtonWidget() {
     delete AlexButton;
 }
 
-void AlexButtonWidget::setlayout() {
+void AlexButtonWidget::setlayout(QWidget & w) {
 
 }

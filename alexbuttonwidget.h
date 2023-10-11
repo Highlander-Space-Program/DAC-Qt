@@ -15,7 +15,7 @@ public:
 private:
 
 public slots:
-    void setlayout();
+    void setlayout(QWidget & w);
 
 signals:
     void buttonClicked();

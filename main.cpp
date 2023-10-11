@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "window.h"
 
 #include <QApplication>
 
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
     }
 
   QApplication a(argc, argv);
-  QWidget w;
+/*  QWidget w;
   QPushButton *AlexButton = new QPushButton();
   AlexButton->setText("AlexButton");
 
@@ -36,10 +37,13 @@ int main(int argc, char *argv[])
   QHBoxLayout *layout = new QHBoxLayout();
   layout->addWidget(AlexButton);
   layout2->addWidget(Back);
-  connect(AlexButton, SIGNAL(clicked()), &layout, SLOT(w.setLayout(layout2)));
+
   w.setLayout(layout);
   w.setWindowTitle(
       QApplication::translate("windowlayout", "Window layout"));
   w.show();
+*/
+  Window *myWindow = new Window();
+  myWindow->showWindow();
   return a.exec();
 }
