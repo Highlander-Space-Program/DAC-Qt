@@ -44,6 +44,6 @@ int main(int argc, char *argv[])
   w.show();
 */
   Window *myWindow = new Window();
-  myWindow->showWindow();
+  myWindow->showHomePage();
   return a.exec();
 }
