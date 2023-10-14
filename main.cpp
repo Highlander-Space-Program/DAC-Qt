@@ -1,16 +1,17 @@
-#include "mainwindow.h"
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
-#include <QApplication>
-
-#include <iostream>
-#include <LabJackM.h>
 
 int main(int argc, char *argv[])
 {
-  int error, handle;
+  QGuiApplication app(argc, argv);
 
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.show();
-  return a.exec();
+  QQmlApplicationEngine engine;
+  const QUrl url(u"qrc:/DAC-Qt/Main.qml"_qs);
+  QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
+    &app, []() { QCoreApplication::exit(-1); },
+    Qt::QueuedConnection);
+  engine.load(url);
+
+  return app.exec();
 }
