@@ -1,4 +1,7 @@
 #include "mainwindow.h"
+#include "mass_data.h"
+#include "temperature_data.h"
+#include "pressure_data.h"
 
 #include <QApplication>
 
