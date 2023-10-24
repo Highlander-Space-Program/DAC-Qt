@@ -1,18 +1,19 @@
-#ifndef PRESSURE_DATA_H
-#define PRESSURE_DATA_H
+#ifndef PRESSUREDATA_H
+#define PRESSUREDATA_H
+
 #include <string>
 #include <chrono>
 
-class Pressure_Data
+class PressureData
 {
 public:
-    Pressure_Data();
+    PressureData();
     double pt1Voltage1;
     double pt1Voltage2;
     double pt1Pressure;
     std::string Label;
-    std::chrono::system_clock * clock = new std::chrono::system_clock();
+    std::chrono::system_clock *clock = new std::chrono::system_clock();
     std::chrono::system_clock::time_point now = clock->now();
 };
 
-#endif // PRESSURE_DATA_H
+#endif // PRESSUREDATA_H

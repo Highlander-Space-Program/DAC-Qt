@@ -24,7 +24,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(DAC-Qt
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        mass_data.cpp mass_data.h pressure_data.cpp pressure_data.h temperature_data.cpp temperature_data.h
+        MassData.cpp MassData.h PressureData.cpp PressureData.h TemperatureData.cpp TemperatureData.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET DAC-Qt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
