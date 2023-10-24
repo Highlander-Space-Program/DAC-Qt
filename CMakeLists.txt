@@ -25,6 +25,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         MassData.cpp MassData.h PressureData.cpp PressureData.h TemperatureData.cpp TemperatureData.h
+        TelemetryDataBase.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET DAC-Qt APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
