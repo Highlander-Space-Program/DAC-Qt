@@ -1,5 +1,5 @@
-#ifndef TELEMETRY_DATA_H
-#define TELEMETRY_DATA_H
+#ifndef PRESSURE_DATA_H
+#define PRESSURE_DATA_H
 #include <string>
 #include <chrono>
 
@@ -15,4 +15,4 @@ public:
     std::chrono::system_clock::time_point now = clock->now();
 };
 
-#endif // TELEMETRY_DATA_H
+#endif // PRESSURE_DATA_H
