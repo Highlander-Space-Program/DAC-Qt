@@ -6,9 +6,9 @@
 class PressureData : TelemetryDataBase
 {
 public:
-    double pt1Voltage1;
-    double pt1Voltage2;
-    double pt1Pressure;
+    double pressure;
+    double voltage1;
+    double voltage2;
 };
 
 #endif // PRESSUREDATA_H
