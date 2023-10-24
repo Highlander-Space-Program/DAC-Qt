@@ -21,7 +21,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Settings.qml
     QML_FILES Pinout.qml
     QML_FILES Navigation.qml
-)
+)l
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
