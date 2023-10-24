@@ -3,10 +3,9 @@
 
 #include "TelemetryDataBase.h"
 
-class PressureData : public TelemetryDataBase
+class PressureData : TelemetryDataBase
 {
 public:
-    PressureData();
     double pt1Voltage1;
     double pt1Voltage2;
     double pt1Pressure;

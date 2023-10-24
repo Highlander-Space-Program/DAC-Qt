@@ -6,7 +6,6 @@
 class MassData : public TelemetryDataBase
 {
 public:
-    MassData();
     double lc1Voltage1;
     double lc1Voltage2;
     double lc1Pressure;

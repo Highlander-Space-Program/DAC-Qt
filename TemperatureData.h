@@ -6,7 +6,6 @@
 class TemperatureData : public TelemetryDataBase
 {
 public:
-    TemperatureData();
     double tc1Voltage1;
     double tc1Voltage2;
     double tc1Weight;
