@@ -16,6 +16,7 @@ Window {
       Navigation { }
       Settings { }
       Pinout { }
+      Setup { }
     }
 }
 

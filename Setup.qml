@@ -6,7 +6,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Setup")
 
     TableView {
         anchors.fill: parent
@@ -14,34 +14,38 @@ Window {
         rowSpacing: 1
         clip: true
 
+
+
         model: TableModel {
             TableModelColumn { display: "Input pin" }
             TableModelColumn { display: "Assigned Input" }
             TableModelColumn { display: "Current Voltage" }
             TableModelColumn { display: "Current Value" }
-            TableModelColumn { display: "Connection Status" }
+            TableModelColumn { display: "Connection_Status" }
+
+            property var rowInput: ["AI0", "AI1", "AI2"]
 
             rows: [
                 {
                     "Input pin": "Input pin",
                     "Assigned Input": "Assigned Input",
-                    "Current Voltage": pt1Voltage1,
+                    "Current Voltage": "Current Voltage",
                     "Current Value": "Current Value",
-                    "Connection Status": "Connection Status"
+                    "Connection_Status": "Connection Status"
                 },
                 {
-                    "Input pin": "AI0",
+                    "Input pin": rowInput[0],
                     "Assigned Input": "PT1 HIGH",
                     "Current Voltage": "0.0V",
                     "Current Value": "0000",
-                    "Connection Status": "N"
+                    "Connection_Status": "N"
                 },
                 {
-                    "Input pin": "AI1",
+                    "Input pin": rowInput[1],
                     "Assigned Input": "PT1 LOW",
                     "Current Voltage": "3.4V",
                     "Current Value": "1234",
-                    "Connection Status": "Y"
+                    "Connection_Status": "Y"
                 },
 
             ]
@@ -51,11 +55,17 @@ Window {
             implicitWidth: 100
             implicitHeight: 50
             border.width: 1
+            property string defaultColor: "black"
+            property string disconnectedColor: "Red"
+            property string connectedColor: "Green"
 
             Text {
-                text: display
+                color: "yellow"
+                text: (display == "Y" || display == "N") ? "" : display
                 anchors.centerIn: parent
             }
+
+            color: (display == "Y") ? connectedColor : (display == "N") ? disconnectedColor : defaultColor
         }
     }
 }
