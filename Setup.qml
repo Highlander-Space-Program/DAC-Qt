@@ -3,10 +3,11 @@ import QtQuick.Window
 import Qt.labs.qmlmodels
 
 Window {
-    width: 640
-    height: 480
+    width: 1920
+    height: 1080
     visible: true
     title: qsTr("Setup")
+    color: "black"
 
     TableView {
         anchors.fill: parent
@@ -52,9 +53,10 @@ Window {
         }
 
         delegate: Rectangle {
-            implicitWidth: 100
+            implicitWidth: Window.width / 5
             implicitHeight: 50
             border.width: 1
+            border.color: "yellow"
             property string defaultColor: "black"
             property string disconnectedColor: "Red"
             property string connectedColor: "Green"
