@@ -1,3 +1,9 @@
 [submodule "extern/DAC-Core"]
 	path = extern/DAC-Core
 	url = git@github.com:Highlander-Space-Program/DAC-Core.git
+[submodule "googletest"]
+	path = googletest
+	url = https://github.com/google/googletest/
+[submodule "extern/googletest"]
+	path = extern/googletest
+	url = https://github.com/google/googletest/
