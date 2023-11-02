@@ -40,6 +40,7 @@ if (NOT ${GMockSrc} STREQUAL "")
 endif ()
 
 include_directories(${GTestIncludes})
+add_subdirectory("../" "${CMAKE_BINARY_DIR}/DAC-Qt")
 
 add_executable(ChannelCreateInputBuffer main.cpp tst_telemetrystream.cpp
                ${GTestFiles})
