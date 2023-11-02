@@ -1,9 +1,9 @@
 #ifndef PRESSUREDATA_H
 #define PRESSUREDATA_H
 
-#include "TelemetryDataBase.h"
+#include "TelemetryData.h"
 
-class PressureData : TelemetryDataBase
+class PressureData : TelemetryData
 {
 public:
     double pressure;
