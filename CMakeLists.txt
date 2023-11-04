@@ -2,9 +2,23 @@ cmake_minimum_required(VERSION 3.16)
 
 project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_STANDARD_CXX 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+add_subdirectory(
+tests
+)
+
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
 qt_standard_project_setup()
 
@@ -23,6 +37,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Navigation.qml
     SOURCES MassData.h PressureData.h TelemetryDataBase.h TemperatureData.h
     QML_FILES Setup.qml
+    SOURCES tests/setup_tests.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -36,9 +51,12 @@ set_target_properties(appDAC-Qt PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+
 target_link_libraries(appDAC-Qt
     PRIVATE Qt6::Quick
+    GTest::gtest_main
 )
+
 
 include(GNUInstallDirs)
 install(TARGETS appDAC-Qt
@@ -46,3 +64,7 @@ install(TARGETS appDAC-Qt
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+enable_testing()
+
+include(GoogleTest)
