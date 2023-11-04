@@ -4,27 +4,27 @@ project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
 
 qt_standard_project_setup()
 
 qt_add_executable(appDAC-Qt
     main.cpp
+    LabJackSink.h
+        LabJackSink.cpp
 )
 
 qt_add_qml_module(appDAC-Qt
     URI DAC-Qt
     VERSION 1.0
     QML_FILES Main.qml
-    SOURCES
     QML_FILES Visualization.qml
     QML_FILES Settings.qml
     QML_FILES Pinout.qml
     QML_FILES Navigation.qml
     SOURCES MassData.h PressureData.h TelemetryData.h TemperatureData.h
-    SOURCES TelemetryChannel.h TelemetryChannel.cpp
-    SOURCES
-    SOURCES TelemetrySinkBase.h
+    SOURCES TelemetryChannel.h
+    SOURCES visualizationcontext.h visualizationcontext.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -39,7 +39,7 @@ set_target_properties(appDAC-Qt PROPERTIES
 )
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Charts LabJackM
 )
 
 include(GNUInstallDirs)
