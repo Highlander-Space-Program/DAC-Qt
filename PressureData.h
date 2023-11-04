@@ -3,7 +3,7 @@
 
 #include "TelemetryData.h"
 
-class PressureData : TelemetryData
+class PressureData : public TelemetryData
 {
 public:
     double pressure;

@@ -2,14 +2,7 @@
 #define TELEMETRYCHANNEL_H
 
 #include <functional>
-#include <map>
-#include <queue>
-
-template <class T>
-class TelemetryMessage {
-public:
-  T data;
-};
+#include <vector>
 
 template <class T>
 class TelemetryChannel
@@ -29,15 +22,6 @@ private:
   std::vector<
     std::function<void(const std::vector<T>&, const size_t)>
     > callbacks_;
-};
-
-template <class T>
-class TelemetrySink {
-public:
-  TelemetrySink(TelemetryChannel<T>* channel) : channel_{channel} { }
-  virtual ~TelemetrySink() =default;
-protected:
-  TelemetryChannel<T>* channel_ {nullptr};
 };
 
 #endif // TELEMETRYCHANNEL_H
