@@ -4,7 +4,7 @@ project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
 
 qt_standard_project_setup()
 
@@ -21,7 +21,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Settings.qml
     QML_FILES Pinout.qml
     QML_FILES Navigation.qml
-    SOURCES MassData.h PressureData.h TelemetryDataBase.h TemperatureData.h
+    SOURCES MassData.h PressureData.h TelemetryData.h TemperatureData.h
     QML_FILES Setup.qml
 )
 
@@ -37,7 +37,7 @@ set_target_properties(appDAC-Qt PROPERTIES
 )
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Charts
 )
 
 include(GNUInstallDirs)
