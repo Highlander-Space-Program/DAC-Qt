@@ -21,7 +21,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Settings.qml
     QML_FILES Pinout.qml
     QML_FILES Navigation.qml
-    SOURCES MassData.h PressureData.h TelemetryData.h TemperatureData.h
+    SOURCES ForceData.h PressureData.h TelemetryData.h TemperatureData.h
     QML_FILES Setup.qml
 )
 
