@@ -16,13 +16,13 @@ qt_add_qml_module(appDAC-Qt
     URI DAC-Qt
     VERSION 1.0
     QML_FILES Main.qml
-    SOURCES
     QML_FILES Visualization.qml
     QML_FILES Settings.qml
     QML_FILES Pinout.qml
     QML_FILES Navigation.qml
-    SOURCES ForceData.h PressureData.h TelemetryData.h TemperatureData.h
     QML_FILES Setup.qml
+    QML_FILES MockChart.qml
+    SOURCES ForceData.h PressureData.h TelemetryData.h TemperatureData.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

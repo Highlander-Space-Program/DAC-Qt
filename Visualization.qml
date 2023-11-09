@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import QtCharts
 
 Item {
   id: root
@@ -10,66 +9,51 @@ Item {
     columns: 1
     rows: 2
 
-    ChartView {
-      id: thrust_graph
+    Item {
+      id: charts
       Layout.fillWidth: true
       Layout.fillHeight: true
-      Layout.preferredHeight: 75
+      Layout.preferredHeight: 85
 
-      title: "Thrust"
+      GridLayout {
+        anchors.fill: parent
+        columns: 3
 
-      DateTimeAxis {
-        id: axis_x
-        format: "hh:mm:ss.zzz"
-      }
-      LineSeries {
-        id: series
-        axisX: axis_x
-
-        XYPoint {
-          x: 1699140289; y: 114.276
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140290; y: 114.403
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140291; y: 114.403
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140292; y: 114.403
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140293; y: 114.655
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140294; y: 114.15
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140295; y: 114.15
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140296; y: 114.276
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
-        XYPoint {
-          x: 1699140297; y: 114.276
-        }
-        XYPoint {
-          x: 1699140298; y: 114.403
-        }
-        XYPoint {
-          x: 1699140299; y: 114.15
-        }
-        XYPoint {
-          x: 1699140300; y: 114.529
-        }
-        XYPoint {
-          x: 1699140301; y: 114.403
-        }
-        XYPoint {
-          x: 1699140302; y: 114.403
-        }
-        XYPoint {
-          x: 1699140303; y: 113.898
+        MockChart {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
         }
       }
     }
@@ -79,7 +63,7 @@ Item {
       Layout.fillWidth: true
       Layout.fillHeight: true
       Layout.row: 2
-      Layout.preferredHeight: 25
+      Layout.preferredHeight: 15
       Layout.margins: 5
 
       RowLayout {
