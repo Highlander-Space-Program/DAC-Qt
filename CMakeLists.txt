@@ -36,6 +36,11 @@ set_target_properties(appDAC-Qt PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+if(WIN32)
+    target_include_directories(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
+    target_link_libraries(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+endif()
+
 target_link_libraries(appDAC-Qt
     PRIVATE Qt6::Quick Qt6::Charts
 )
