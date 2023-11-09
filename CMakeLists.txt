@@ -18,7 +18,6 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Main.qml
     QML_FILES Visualization.qml
     QML_FILES Settings.qml
-    QML_FILES Pinout.qml
     QML_FILES Navigation.qml
     QML_FILES Setup.qml
     QML_FILES MockChart.qml
