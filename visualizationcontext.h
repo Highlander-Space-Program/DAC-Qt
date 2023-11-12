@@ -77,7 +77,6 @@ public slots:
     xy_series->append({
       static_cast<qreal>(ms.count()),
       to_pressure(point.voltage1)
-//      point.voltage1
     });
     while(xy_series->count() > 100000) {
       xy_series->remove(0);
