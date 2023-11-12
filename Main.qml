@@ -15,7 +15,7 @@ Window {
       Visualization { }
       Navigation { }
       Settings { }
-      Pinout { }
+      // Setup { }
     }
 }
 
