@@ -20,9 +20,10 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Main.qml
     QML_FILES Visualization.qml
     QML_FILES Settings.qml
-    QML_FILES Pinout.qml
     QML_FILES Navigation.qml
-    SOURCES MassData.h PressureData.h TelemetryData.h TemperatureData.h
+    QML_FILES Setup.qml
+    QML_FILES MockChart.qml
+    SOURCES ForceData.h PressureData.h TelemetryData.h TemperatureData.h
     SOURCES TelemetryChannel.h
     SOURCES visualizationcontext.h visualizationcontext.cpp
 )
@@ -37,6 +38,11 @@ set_target_properties(appDAC-Qt PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+if(WIN32)
+    target_include_directories(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
+    target_link_libraries(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+endif()
 
 target_link_libraries(appDAC-Qt
     PRIVATE Qt6::Quick Qt6::Charts LabJackM

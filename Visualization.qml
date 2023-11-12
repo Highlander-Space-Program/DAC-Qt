@@ -4,7 +4,7 @@ import QtCharts
 Item {
   id: root
 
-    ChartView{
+    ChartView {
       id: chart
       anchors.fill: parent
       title: "Pressure"
@@ -24,8 +24,8 @@ Item {
       LineSeries {
         id: series
         useOpenGL: true
-          axisX: axisX
-          axisY: axisY
+        axisX: axisX
+        axisY: axisY
       }
     }
 

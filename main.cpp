@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
   error = lj_sink.start_stream(scan_rate/2, scan_rate, {"AIN0"});
   LJM_ErrorToString(error, err_str);
   if (error) std::cout << err_str << std::endl;
-
   QApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
