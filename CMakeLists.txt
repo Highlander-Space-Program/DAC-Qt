@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
 
+add_subdirectory(extern/influxdb-cxx)
+
 qt_standard_project_setup()
 
 qt_add_executable(appDAC-Qt
@@ -41,7 +43,7 @@ if(WIN32)
 endif()
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick Qt6::Charts
+    PRIVATE Qt6::Quick Qt6::Charts InfluxData::InfluxDB
 )
 
 include(GNUInstallDirs)
