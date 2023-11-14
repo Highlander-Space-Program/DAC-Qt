@@ -2,7 +2,29 @@
 
 LaunchInhibitor::LaunchInhibitor()
 {
+    //Broadcaster<sensorType>->getInstance().subscribe(updateValues);
+}
 
+//generates callback to get updated values
+void LaunchInhibitor::updatePTValues() {
+    chamberPres = -1;
+    ethInjectorPres = -1;
+    nosInjectorPres = -1;
+    ethTankPres = -1;
+    nosTankPres = -1;
+}
+
+void LaunchInhibitor::updateLCValues() {
+    thrustLoad = -1;
+    ethTankLoad = -1;
+    nosTankLoad = -1;
+}
+
+void LaunchInhibitor::updateTCValues() {
+    chamberTemp1 = -1;
+    chamberTemp2 = -1;
+    ethTankLoad = -1;
+    nosTankTemp = -1;
 }
 
 bool LaunchInhibitor::checkAll(){
@@ -48,4 +70,12 @@ bool LaunchInhibitor::checkChamber(){
     else {
         return false;
     }
+}
+
+void LaunchInhibitor::inhibitLaunch() {
+
+}
+
+void LaunchInhibitor::allowLaunch() {
+
 }

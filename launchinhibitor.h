@@ -25,18 +25,17 @@ public:
     double ethTankTemp;
     double nosTankTemp;
 
-    //bools
-    bool nosTankGood;
-    bool ethTankGood;
-    bool injectorGood;
-    bool chamberGood;
-
     //Functions
+    void updatePTValues();
+    void updateLCValues();
+    void updateTCValues();
     bool checkAll();
     bool checkNOSTank();
     bool checkEthTank();
     bool checkInjector();
     bool checkChamber();
+    void inhibitLaunch();
+    void allowLaunch();
 
 };
 
