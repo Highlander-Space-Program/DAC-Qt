@@ -10,6 +10,12 @@ qt_standard_project_setup()
 
 qt_add_executable(appDAC-Qt
     main.cpp
+    broadcast/Broadcaster.cpp
+    broadcast/Sink.cpp 
+    MassData.h
+    PressureData.h
+    TelemetryDataBase.h
+    TemperatureData.h
 )
 
 qt_add_qml_module(appDAC-Qt
