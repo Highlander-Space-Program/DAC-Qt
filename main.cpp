@@ -2,6 +2,9 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <InfluxDB.h>
+#include <InfluxDBFactory.h>
+
 #include "TelemetryChannel.h"
 #include "PressureData.h"
 #include "visualizationcontext.h"
@@ -9,9 +12,21 @@
 
 int main(int argc, char *argv[])
 {
+  auto db = influxdb::InfluxDBFactory::Get("http://<token>@localhost:8086?db=burst_test");
+  db->batchOf(100);
+
   TelemetryChannel<PressureData> channel;
-  channel.subscribe([](const std::vector<PressureData>& buffer, const size_t size){
+  channel.subscribe([&db](const std::vector<PressureData>& buffer, const size_t size){
     // upload to influx
+    std::vector<influxdb::Point> v;
+    for (const auto& i : buffer) {
+      db->write(influxdb::Point("test2")
+        .setTimestamp(i.timestamp)
+        .addField("pressure", i.pressure())
+        .addField("voltage", i.voltage())
+        .addTag("sensor", "pt-01"));
+    }
+    db->flushBatch();
   });
 
   LabJackSink lj_sink;
@@ -21,8 +36,8 @@ int main(int argc, char *argv[])
   if (error) std::cout << err_str << std::endl;
 
   lj_sink.pressure_channel = &channel;
-  int scan_rate = 10000;
-  error = lj_sink.start_stream(scan_rate/2, scan_rate, {"AIN0"});
+  int scan_rate = 100;
+  error = lj_sink.start_stream(scan_rate, scan_rate, {"AIN0"});
   LJM_ErrorToString(error, err_str);
   if (error) std::cout << err_str << std::endl;
   QApplication app(argc, argv);
@@ -37,5 +52,9 @@ int main(int argc, char *argv[])
   engine.rootContext()->setContextProperty("visualizationContext", &visualizationContext);
   engine.load(url);
 
-  return app.exec();
+  int ret = app.exec();
+  db->flushBatch();
+  db.release();
+
+  return ret;
 }

@@ -16,7 +16,7 @@ LabJackSink::LabJackSink(std::string identifier, int device_type) : device_type_
     std::vector<PressureData> data(size);
     for (size_t i = 0; i < size; i++) {
       data[i].label = "PT-01";
-      data[i].voltage1 = arr[i];
+      data[i].from_voltage(arr[i]);
     }
     stream_args->channel->broadcast(data, size);
   };

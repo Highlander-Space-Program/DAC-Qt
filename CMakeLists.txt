@@ -27,6 +27,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES MockChart.qml
     SOURCES ForceData.h PressureData.h TelemetryData.h TemperatureData.h
     SOURCES TelemetryChannel.h
+    SOURCES LabJackSink.h LabJackSink.cpp
     SOURCES visualizationcontext.h visualizationcontext.cpp
 )
 

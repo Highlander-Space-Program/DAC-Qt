@@ -29,14 +29,16 @@ public:
     if (!output_file_) {
       std::cout << "Error opening file\n";
     }
-    output_file_ << "timestamp,voltage,pressure\n";
+    if (output_file_.eof()) { // TODO proper file existence check
+      output_file_ << "timestamp,voltage,pressure\n";
+    }
 
     channel->subscribe([&](const std::vector<PressureData> &buffer, const size_t size){
       data_end_ = std::min(size, 10000ul);
       for (size_t i {0}; i < size; i++) {
-        output_file_ << std::chrono::system_clock::to_time_t((buffer[i].timestamp)) << ','
-                     << buffer[i].voltage1 << ','
-                     << to_pressure(buffer[i].voltage1)
+        output_file_ << (std::chrono::duration_cast<std::chrono::milliseconds>(buffer[i].timestamp.time_since_epoch())).count() << ','
+                     << buffer[i].voltage() << ','
+                     << buffer[i].pressure()
                      << std::endl;
       }
       std::move(buffer.begin(), buffer.begin()+data_end_, data_.begin());
@@ -76,14 +78,14 @@ public slots:
     milliseconds ms = duration_cast<milliseconds>(point.timestamp.time_since_epoch());
     xy_series->append({
       static_cast<qreal>(ms.count()),
-      to_pressure(point.voltage1)
+      point.pressure()
     });
     while(xy_series->count() > 100000) {
       xy_series->remove(0);
     }
     setMinX(QDateTime::fromMSecsSinceEpoch((ms - 30s).count()));
     setMaxX(QDateTime::fromMSecsSinceEpoch(ms.count()));
-    setCurrentValue(QString::fromStdString(std::to_string(to_pressure(data_[data_end_-1].voltage1))));
+    setCurrentValue(QString::fromStdString(std::to_string(data_[data_end_-1].pressure())));
   }
 
 private:
@@ -93,14 +95,6 @@ private:
   QDateTime minX_;
   QDateTime maxX_;
   QString currentValue_;
-
-  static constexpr double to_pressure(double voltage) {
-    constexpr double min_pressure = 0.0,
-      max_pressure = 1600.0,
-      min_voltage = 0.5,
-      max_voltage = 4.5;
-    return (voltage-min_voltage)*((max_pressure-min_pressure)/(max_voltage-min_voltage)) + min_pressure;
-  }
 };
 
 #endif // VISUALIZATIONCONTEXT_H

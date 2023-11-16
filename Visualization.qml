@@ -13,7 +13,7 @@ Item {
       ValueAxis {
         id: axisY
         min: -5
-        max: 1600
+        max: 1000
       }
       DateTimeAxis {
         id: axisX
