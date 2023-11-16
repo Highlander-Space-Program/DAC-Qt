@@ -1,4 +1,4 @@
-#**The current active branch is experimental/qml, not main.**
+# **The current active branch is experimental/qml, not main.**
 
 # DAC-Qt
 Qt-based DAC real-time visualization, control, and configuration tool
