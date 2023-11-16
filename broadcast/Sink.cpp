@@ -1,6 +1,7 @@
 #include "Sink.hpp"
 #include "Broadcaster.hpp"
 #include "TelemetryDataBase.h"
+#include <iostream>
 
 Sink::Sink() {}
 

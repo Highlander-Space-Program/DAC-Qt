@@ -6,6 +6,7 @@
 
 class TelemetryDataBase {
 public:
+  virtual ~TelemetryDataBase() = default;
   std::string label;
   std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
 };
