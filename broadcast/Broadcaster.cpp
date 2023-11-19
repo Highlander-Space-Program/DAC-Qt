@@ -1,6 +1,7 @@
 #include "Broadcaster.hpp"
 
 #include <iostream>
+#include <vector>
 
 // Explicit instantiation of the Broadcaster template for expected types
 template <typename T>

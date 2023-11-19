@@ -1,8 +1,8 @@
 #ifndef BROADCASTER_HPP
 #define BROADCASTER_HPP
 
-#include "TelemetryDataBase.h"
-#include "MassData.h"
+#include "TelemetryData.h"
+#include "ForceData.h"
 #include "PressureData.h"
 #include "TemperatureData.h"
 
@@ -10,8 +10,8 @@
 class BroadcasterBase {
 public:
     virtual ~BroadcasterBase() {}
-    virtual void broadcastBase(TelemetryDataBase* item) = 0;
-    virtual void broadcastBase(std::vector<TelemetryDataBase*> items) = 0;
+    virtual void broadcastBase(TelemetryData* item) = 0;
+    virtual void broadcastBase(std::vector<TelemetryData*> items) = 0;
 };
 
 // Broadcaster template class declaration
@@ -33,8 +33,8 @@ public:
     void broadcast(std::vector<T*> items);
 
     // Implementations of the virtual methods from BroadcasterBase will be provided in the .cpp file
-    void broadcastBase(TelemetryDataBase* item) override;
-    void broadcastBase(std::vector<TelemetryDataBase*> items) override;
+    void broadcastBase(TelemetryData* item) override;
+    void broadcastBase(std::vector<TelemetryData*> items) override;
 };
 
 // Include the definition of the getInstance method for all expected specializations

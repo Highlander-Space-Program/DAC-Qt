@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "Broadcaster.hpp"
-#include "TelemetryDataBase.h"
+#include "TelemetryData.h"
 
 class Sink {
 private:
@@ -13,7 +13,7 @@ private:
 public:
     Sink();
     Sink(std::vector<std::shared_ptr<BroadcasterBase>> broadcasters);
-    int sendData(std::vector<TelemetryDataBase*> data);
+    int sendData(std::vector<TelemetryData*> data);
 };
 
 #endif // SINK_H
