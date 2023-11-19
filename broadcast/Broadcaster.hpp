@@ -1,10 +1,10 @@
 #ifndef BROADCASTER_HPP
 #define BROADCASTER_HPP
 
+#include <vector>
+#include <memory>
+
 #include "TelemetryData.h"
-#include "ForceData.h"
-#include "PressureData.h"
-#include "TemperatureData.h"
 
 // BroadcasterBase class declaration
 class BroadcasterBase {

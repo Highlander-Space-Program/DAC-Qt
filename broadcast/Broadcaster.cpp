@@ -1,7 +1,9 @@
 #include "Broadcaster.hpp"
+#include "ForceData.h"
+#include "PressureData.h"
+#include "TemperatureData.h"
 
 #include <iostream>
-#include <vector>
 
 // Explicit instantiation of the Broadcaster template for expected types
 template <typename T>
@@ -37,16 +39,16 @@ void Broadcaster<T>::broadcast(std::vector<T*> items) {
 }
 
 template <typename T>
-void Broadcaster<T>::broadcastBase(TelemetryDataBase* item) {
-    // This cast is safe only if T is guaranteed to be TelemetryDataBase or derived from it
+void Broadcaster<T>::broadcastBase(TelemetryData* item) {
+    // This cast is safe only if T is guaranteed to be TelemetryData or derived from it
 
     this->broadcast(dynamic_cast<T*>(item));
 }
 
 template <typename T>
-void Broadcaster<T>::broadcastBase(std::vector<TelemetryDataBase*> items) {
+void Broadcaster<T>::broadcastBase(std::vector<TelemetryData*> items) {
     for (auto baseItem : items) {
-        // This cast is safe only if T is guaranteed to be TelemetryDataBase or derived from it
+        // This cast is safe only if T is guaranteed to be TelemetryData or derived from it
         T* item = dynamic_cast<T*>(baseItem);
         if (item) { // Check if the dynamic cast succeeded
             std::cout << "Valid Cast";
@@ -59,6 +61,6 @@ void Broadcaster<T>::broadcastBase(std::vector<TelemetryDataBase*> items) {
 
 // If other methods of the template class Broadcaster need to be defined outside of the header,
 // their definitions would follow here, using the same template <typename T> prefix.
-template class Broadcaster<MassData>;
+template class Broadcaster<ForceData>;
 template class Broadcaster<PressureData>;
 template class Broadcaster<TemperatureData>;

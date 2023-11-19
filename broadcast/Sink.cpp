@@ -1,13 +1,12 @@
 #include "Sink.hpp"
 #include "Broadcaster.hpp"
-#include "TelemetryDataBase.h"
-#include <iostream>
+#include "TelemetryData.h"
 
 Sink::Sink() {}
 
 Sink::Sink(std::vector<std::shared_ptr<BroadcasterBase>> broadcasters) : broadcasters(broadcasters) {}
 
-int Sink::sendData(std::vector<TelemetryDataBase*> data) {
+int Sink::sendData(std::vector<TelemetryData*> data) {
     for (auto& dbData : data) {
         for (auto& broadcaster : broadcasters) {
             broadcaster->broadcastBase(dbData);

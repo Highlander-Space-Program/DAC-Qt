@@ -1,8 +1,6 @@
 #ifndef SINK_H
 #define SINK_H
 
-#include <vector>
-#include <memory>
 #include "Broadcaster.hpp"
 #include "TelemetryData.h"
 
