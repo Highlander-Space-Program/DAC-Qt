@@ -36,8 +36,8 @@ set_target_properties(appDAC-Qt PROPERTIES
 )
 
 if(WIN32)
-    target_include_directories(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
-    target_link_libraries(DAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+    target_include_directories(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
+    target_link_libraries(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
 endif()
 
 target_link_libraries(appDAC-Qt

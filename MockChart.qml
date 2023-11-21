@@ -1,4 +1,4 @@
-import QtQuick
+    import QtQuick
 import QtCharts
 
 Item {

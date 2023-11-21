@@ -39,22 +39,7 @@ Item {
           Layout.fillWidth: true
           Layout.fillHeight: true
         }
-        MockChart {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-        }
-        MockChart {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-        }
-        MockChart {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-        }
-        MockChart {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-        }
+
       }
     }
 
