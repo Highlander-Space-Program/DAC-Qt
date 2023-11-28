@@ -4,8 +4,8 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
-#include "broadcast/Broadcaster.hpp"
-#include "broadcast/Sink.hpp"
+#include "broadcast/Broadcaster.h"
+#include "broadcast/Sink.h"
 
 #include "ForceData.h"
 #include "PressureData.h"

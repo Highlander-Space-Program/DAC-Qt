@@ -10,12 +10,6 @@ qt_standard_project_setup()
 
 qt_add_executable(appDAC-Qt
     main.cpp
-    broadcast/Broadcaster.cpp
-    broadcast/Sink.cpp 
-    MassData.h
-    PressureData.h
-    TelemetryDataBase.h
-    TemperatureData.h
 )
 
 qt_add_qml_module(appDAC-Qt
@@ -28,6 +22,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Setup.qml
     QML_FILES MockChart.qml
     SOURCES ForceData.h PressureData.h TelemetryData.h TemperatureData.h
+    SOURCES broadcast/Sink.h broadcast/Broadcaster.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
