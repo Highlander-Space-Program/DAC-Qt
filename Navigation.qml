@@ -21,6 +21,7 @@ Item {
             text: name
             width: myGridView.cellWidth - 10
             height: myGridView.cellHeight
+
             background: Rectangle {
                 color: "black"
             }
