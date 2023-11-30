@@ -37,7 +37,6 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Navigation.qml
     SOURCES MassData.h PressureData.h TelemetryDataBase.h TemperatureData.h
     QML_FILES Setup.qml
-    SOURCES
     SOURCES launchinhibitor.h launchinhibitor.cpp
 )
 
