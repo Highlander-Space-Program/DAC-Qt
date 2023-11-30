@@ -4,31 +4,25 @@ project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
 
 qt_standard_project_setup()
 
 qt_add_executable(appDAC-Qt
     main.cpp
-    broadcast/Broadcaster.cpp
-    broadcast/Sink.cpp 
-    MassData.h
-    PressureData.h
-    TelemetryDataBase.h
-    TemperatureData.h
 )
 
 qt_add_qml_module(appDAC-Qt
     URI DAC-Qt
     VERSION 1.0
     QML_FILES Main.qml
-    SOURCES
     QML_FILES Visualization.qml
     QML_FILES Settings.qml
-    QML_FILES Pinout.qml
     QML_FILES Navigation.qml
-    SOURCES MassData.h PressureData.h TelemetryDataBase.h TemperatureData.h
     QML_FILES Setup.qml
+    QML_FILES MockChart.qml
+    SOURCES ForceData.h PressureData.h TelemetryData.h TemperatureData.h
+    SOURCES broadcast/Sink.h broadcast/Broadcaster.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -42,8 +36,13 @@ set_target_properties(appDAC-Qt PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+if(WIN32)
+    target_include_directories(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
+    target_link_libraries(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+endif()
+
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Charts
 )
 
 include(GNUInstallDirs)
