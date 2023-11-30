@@ -44,7 +44,9 @@ bool LaunchInhibitor::checkAll(){
 
 //checks NOS tank sensors
 bool LaunchInhibitor::checkNOSTank(){
-    if (nosTankLoad && (nosTankPres > 750 && nosTankPres < 850) && nosTankTemp) {
+    if ((nosTankLoad > minNosTankLoad && nosTankLoad < maxNosTankLoad)
+        && (nosTankPres > minNosTankPres && nosTankPres < maxNosTankPres)
+        && (nosTankTemp > minNosTankTemp && nosTankTemp < maxNosTankTemp)) {
         return true;
     }
     else {
@@ -54,7 +56,9 @@ bool LaunchInhibitor::checkNOSTank(){
 
 //checks Eth tank sensors
 bool LaunchInhibitor::checkEthTank(){
-    if (ethTankLoad && (nosTankPres > 750 && nosTankPres < 850) && ethTankTemp) {
+    if ((ethTankLoad > minEthTankLoad && ethTankLoad < maxEthTankLoad)
+        && (ethTankPres > minEthTankPres && nosTankPres < maxEthTankPres)
+        && (ethTankTemp > minEthTankTemp && ethTankTemp < maxEthTankTemp)) {
         return true;
     }
     else {
@@ -62,30 +66,20 @@ bool LaunchInhibitor::checkEthTank(){
     }
 }
 
-//checks Injector Sensors
+//checks Injector Sensors, always returns true since no chamber sensors are inhibitors at the moment
 bool LaunchInhibitor::checkInjector(){
-    if (ethInjectorPres && nosInjectorPres) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return true;
 }
 
-//checks Chamber sensors
+//checks Chamber sensors, always returns true since no chamber sensors are inhibitors at the moment
 bool LaunchInhibitor::checkChamber(){
-    if (chamberPres && chamberTemp1 && chamberTemp2) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return true;
 }
 
 //Writes 0.1 Volts to DAC0
 void LaunchInhibitor::inhibitLaunch(const int handle) {
-    int LJMError;
-    LJMError = LJM_eWriteAddress(handle, 1000, 3, 0.1);
+    int LJMError = 0;
+    LJMError = LJM_eWriteName(handle, "DAC0", 2.5);
     if (LJMError) {
         std::cout << "Error Writing to DAC Output on inhibit, Error code: " << LJMError << std::endl;
     }
@@ -93,8 +87,8 @@ void LaunchInhibitor::inhibitLaunch(const int handle) {
 
 //writes 5 Volts to DAC0
 void LaunchInhibitor::allowLaunch(const int handle) {
-    int LJMError;
-    LJMError = LJM_eWriteAddress(handle, 1000, 3, 5);
+    int LJMError = 0;
+    //LJMError = LJM_eWriteAddress(handle, 1000, 3, 5);
     if (LJMError) {
         std::cout << "Error Writing to DAC Output on allow, Error code: " << LJMError << std::endl;
     }
@@ -107,6 +101,10 @@ void LaunchInhibitor::toggleManualOveride() {
 
 //if all sensors are in range or manualOveride is true, calls allowLaunch, else calls inhibitLaunch
 void LaunchInhibitor::updateInhibit(const int handle) {
+    updateLCValues();
+    updateTCValues();
+    updatePTValues();
+
     if (checkAll()) {
         allowLaunch(handle);
     }
@@ -117,4 +115,5 @@ void LaunchInhibitor::updateInhibit(const int handle) {
         inhibitLaunch(handle);
     }
 }
+
 //what are you doin all the way down here huh?
