@@ -51,10 +51,11 @@ set_target_properties(appDAC-Qt PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-
+target_include_directories(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
 target_link_libraries(appDAC-Qt
     PRIVATE Qt6::Quick
     GTest::gtest_main
+    PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib"
 )
 
 
