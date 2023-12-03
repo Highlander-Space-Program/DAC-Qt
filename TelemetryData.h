@@ -6,6 +6,7 @@
 
 class TelemetryData {
 public:
+  virtual ~TelemetryData() =default;
   std::string label;
   std::chrono::system_clock::time_point timestamp = std::chrono::system_clock::now();
 };
