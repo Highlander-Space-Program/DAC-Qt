@@ -8,6 +8,13 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
 
 qt_standard_project_setup()
 
+option(PACKAGE_TESTS "Build with Tests" ON)
+if(PACKAGE_TESTS)
+    enable_testing()
+    include(GoogleTest)
+    add_subdirectory(tests)
+endif()
+
 qt_add_executable(appDAC-Qt
     main.cpp
 )
