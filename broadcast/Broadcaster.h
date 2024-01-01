@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "../TelemetryData.h"
+#include "../models/TelemetryData.h"
 
 // BroadcasterBase class declaration
 class BroadcasterBase {

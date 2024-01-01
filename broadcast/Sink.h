@@ -2,7 +2,7 @@
 #define SINK_H
 
 #include "Broadcaster.h"
-#include "../TelemetryData.h"
+#include "../models/TelemetryData.h"
 
 class Sink {
 private:
