@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "TelemetryData.h"
+#include "../TelemetryData.h"
 
 // BroadcasterBase class declaration
 class BroadcasterBase {
@@ -39,10 +39,9 @@ public:
       return;
     }
 
-    std::cout << "Broadcasting data: " << item->voltage2 << '\n';
-      for (auto& callback : this->callbacks_) {
-          callback(item);
-      }
+    for (auto& callback : this->callbacks_) {
+        callback(item);
+    }
   }
   void broadcast(std::vector<T*> items) {
     std::cout << "Broadcasting\n";
