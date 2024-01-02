@@ -33,14 +33,14 @@ TEST_F(BroadcasterTest, SinkShouldSend) {
   sink.sendData({&data});
 }
 
-TEST_F(BroadcasterTest, SinkShouldSendTyped) {
-  ForceData forceData;
-  forceData.label = "Force Test";
-  broadcaster->subscribe([](const TelemetryData *data){
-    EXPECT_NE(data, nullptr);
-    ASSERT_EQ(data->label, "Force Test");
+TEST_F(BroadcasterTest, SinkShouldNullptr) {
+  TelemetryData data;
+  data.label = "Type test";
+  auto str_broadcaster = Broadcaster<std::string>::getInstance();
+  str_broadcaster->subscribe([](const std::string *data){
+    ASSERT_EQ(data, nullptr);
   });
 
-  Sink sink({forceBroadcaster});
-  sink.sendData({&forceData});
+  Sink sink({str_broadcaster});
+  sink.sendData({&data});
 }
