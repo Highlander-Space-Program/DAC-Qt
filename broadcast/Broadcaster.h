@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <functional>
 
 #include <iostream>
 
@@ -21,8 +22,8 @@ template <typename T>
 class Broadcaster : public BroadcasterBase {
 private:
   Broadcaster() =default;
-  Broadcaster(std::vector<void(*)(T const*)> callbacks) : callbacks_(callbacks) {}
-  std::vector<void(*)(const T*)> callbacks_;
+  Broadcaster(std::vector<std::function<void(const T*)>> callbacks) : callbacks_(callbacks) {}
+  std::vector<std::function<void(const T*)>> callbacks_;
 
 public:
   static std::shared_ptr<Broadcaster<T>> getInstance() {
@@ -30,7 +31,7 @@ public:
     return instance;
   }
 
-  void subscribe(void(*callback)(const T*)) {
+  void subscribe(std::function<void(const T*)> callback) {
     this->callbacks_.push_back(callback);
   }
   void broadcast(T* item) {
