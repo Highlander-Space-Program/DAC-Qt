@@ -5,7 +5,7 @@
 #include "../models/TelemetryData.h"
 
 class Sink {
-private:
+protected:
     std::vector<std::shared_ptr<BroadcasterBase>> broadcasters;
 
 public:
@@ -19,6 +19,7 @@ public:
       }
       return 0; // Assuming sendData is always successful for this example
   }
+  virtual ~Sink() =default;
 };
 
 #endif // SINK_H
