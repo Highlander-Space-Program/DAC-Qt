@@ -17,6 +17,9 @@ endif()
 
 qt_add_executable(appDAC-Qt
     main.cpp
+        sinks/LabJackSink.cpp
+        sinks/LabJackSink.h
+        sinks/LabJackSinkStrategy.h
 )
 
 qt_add_qml_module(appDAC-Qt
@@ -49,7 +52,7 @@ if(WIN32)
 endif()
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick Qt6::Charts
+    PRIVATE Qt6::Quick Qt6::Charts LabJackM
 )
 
 include(GNUInstallDirs)

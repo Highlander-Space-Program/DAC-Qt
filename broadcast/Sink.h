@@ -6,18 +6,18 @@
 
 class Sink {
 protected:
-    std::vector<std::shared_ptr<BroadcasterBase>> broadcasters;
+  std::vector<std::shared_ptr<BroadcasterBase>> broadcasters;
 
 public:
   Sink() =default;
   Sink(std::vector<std::shared_ptr<BroadcasterBase>> broadcasters) : broadcasters(broadcasters) { }
-    int sendData(std::vector<TelemetryData*> data) {
-      for (auto& dbData : data) {
-          for (auto& broadcaster : broadcasters) {
-              broadcaster->broadcastBase(dbData);
-          }
+  int sendData(std::vector<TelemetryData*> data) {
+    for (auto& dbData : data) {
+      for (auto& broadcaster : broadcasters) {
+          broadcaster->broadcastBase(dbData);
       }
-      return 0; // Assuming sendData is always successful for this example
+    }
+    return 0; // Assuming sendData is always successful for this example
   }
   virtual ~Sink() =default;
 };
