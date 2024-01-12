@@ -4,9 +4,9 @@
 #include <utility>
 
 #include "LabJackSink.h"
-#include "models/PressureData.h"
-#include "models/TemperatureData.h"
-#include "models/ForceData.h"
+#include "../models/PressureData.h"
+#include "../models/TemperatureData.h"
+#include "../models/ForceData.h"
 
 class LabJackSinkStrategy {
 public:

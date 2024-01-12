@@ -1,9 +1,7 @@
 #ifndef DAC_QT_LABJACKSINK_H
 #define DAC_QT_LABJACKSINK_H
 
-#include <map>
-
-#include "broadcast/Sink.h"
+#include "../broadcast/Sink.h"
 
 class LabJackSinkStrategy;
 

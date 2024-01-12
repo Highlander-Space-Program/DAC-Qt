@@ -12,14 +12,21 @@ option(PACKAGE_TESTS "Build with Tests" ON)
 if(PACKAGE_TESTS)
     enable_testing()
     include(GoogleTest)
+    add_library(libDAC-Qt
+        models/ForceData.h
+        models/PressureData.h
+        models/TelemetryData.h
+        models/TemperatureData.h
+        sinks/LabJackSink.h
+        sinks/LabJackSink.cpp sinks/LabJackSinkStrategy.h
+        broadcast/Sink.h
+        broadcast/Broadcaster.h
+    )
     add_subdirectory(tests)
 endif()
 
 qt_add_executable(appDAC-Qt
     main.cpp
-        sinks/LabJackSink.cpp
-        sinks/LabJackSink.h
-        sinks/LabJackSinkStrategy.h
 )
 
 qt_add_qml_module(appDAC-Qt
@@ -32,6 +39,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Setup.qml
     QML_FILES MockChart.qml
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
+    SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp sinks/LabJackSinkStrategy.h
     SOURCES broadcast/Sink.h broadcast/Broadcaster.h
 )
 
