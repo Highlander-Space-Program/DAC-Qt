@@ -5,6 +5,7 @@ project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
+add_subdirectory("extern/influxdb-cxx")
 
 qt_standard_project_setup()
 
@@ -12,6 +13,7 @@ option(PACKAGE_TESTS "Build with Tests" ON)
 if(PACKAGE_TESTS)
     enable_testing()
     include(GoogleTest)
+    add_subdirectory(tests)
     add_library(libDAC-Qt
         models/ForceData.h
         models/PressureData.h
@@ -22,7 +24,6 @@ if(PACKAGE_TESTS)
         broadcast/Sink.h
         broadcast/Broadcaster.h
     )
-    add_subdirectory(tests)
 endif()
 
 qt_add_executable(appDAC-Qt
@@ -60,7 +61,7 @@ if(WIN32)
 endif()
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick Qt6::Charts LabJackM
+    PRIVATE Qt6::Quick Qt6::Charts LabJackM InfluxData::InfluxDB
 )
 
 include(GNUInstallDirs)
