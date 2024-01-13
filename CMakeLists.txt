@@ -57,10 +57,12 @@ set_target_properties(appDAC-Qt PROPERTIES
 if(WIN32)
     target_include_directories(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
     target_link_libraries(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+else()
+    target_link_libraries(appDAC-Qt PRIVATE LabJackM)
 endif()
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick Qt6::Charts LabJackM
+    PRIVATE Qt6::Quick Qt6::Charts
 )
 
 include(GNUInstallDirs)
