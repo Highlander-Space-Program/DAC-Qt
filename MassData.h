@@ -1,9 +1,9 @@
 #ifndef MASSDATA_H
 #define MASSDATA_H
 
-#include "TelemetryDataBase.h"
+#include "TelemetryData.h"
 
-class MassData : public TelemetryDataBase
+class MassData : public TelemetryData
 {
 public:
     double mass;

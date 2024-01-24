@@ -2,6 +2,11 @@
 #define LAUNCHINHIBITOR_H
 
 
+#include "MassData.h"
+#include "PressureData.h"
+#include "TemperatureData.h"
+#include "broadcast/Broadcaster.h"
+
 class LaunchInhibitor
 {
 public:
@@ -11,9 +16,10 @@ public:
     //PTs
     double chamberPres;
     double ethInjectorPres;
-    double nosInjectorPres;
+    double nosFillPres;
     double ethTankPres;
     double nosTankPres;
+    double n2LinePres;
 
     //LCs
     double thrustLoad;
@@ -42,12 +48,16 @@ public:
     const int minEthTankTemp = 56;
     const int minNosTankTemp = 56;
 
+    std::shared_ptr<Broadcaster<PressureData>> pressureBroadcaster;
+    std::shared_ptr<Broadcaster<TemperatureData>> temperatureBroadcaster;
+    std::shared_ptr<Broadcaster<MassData>> massBroadcaster;
+
     //Functions
     void updateInhibit(const int handle);
     void toggleManualOveride();
-    void updatePTValues();
-    void updateLCValues();
-    void updateTCValues();
+    void updatePTValues(std::shared_ptr<Broadcaster<PressureData>> &pressureBroadcaster);
+    void updateLCValues(std::shared_ptr<Broadcaster<MassData>> &massBroadcaster);
+    void updateTCValues(std::shared_ptr<Broadcaster<TemperatureData>> &temperatureBroadcaster);
     bool checkAll();
     bool checkNOSTank();
     bool checkEthTank();
