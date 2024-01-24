@@ -4,6 +4,8 @@ project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(spdlog REQUIRED)
+
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
 
 qt_standard_project_setup()
@@ -62,7 +64,7 @@ else()
 endif()
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick Qt6::Charts
+    PRIVATE Qt6::Quick Qt6::Charts spdlog::spdlog
 )
 
 include(GNUInstallDirs)
