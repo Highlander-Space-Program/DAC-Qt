@@ -16,11 +16,15 @@ int main(int argc, char *argv[])
 
   auto db = influxdb::InfluxDBFactory::Get("http://<token>@localhost:8086?db=dry_test");
   pressureBroadcaster->subscribe([&db](const PressureData *data){
+    try {
       db->write(influxdb::Point{"dry_test"}
-      .addField("pressure", data->pressure())
-      .addField("voltage", data->voltage())
-      .addTag("sensor", data->label)
+                        .addField("pressure", data->pressure())
+                        .addField("voltage", data->voltage())
+                        .addTag("sensor", data->label)
       );
+    } catch (influxdb::InfluxDBException &e) {
+      std::cerr << e.what() << std::endl;
+    }
   });
 
   QApplication app(argc, argv);
