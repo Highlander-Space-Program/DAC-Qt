@@ -1,9 +1,9 @@
-#ifndef MASSDATA_H
-#define MASSDATA_H
+#ifndef FORCEDATA_H
+#define FORCEDATA_H
 
 #include "TelemetryData.h"
 
-class MassData : public TelemetryData
+class ForceData : public TelemetryData
 {
 public:
     double mass;
@@ -11,4 +11,4 @@ public:
     double voltage2;
 };
 
-#endif // MASSDATA_H
+#endif // FORCEDATA_H

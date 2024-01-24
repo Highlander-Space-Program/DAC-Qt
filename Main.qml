@@ -3,8 +3,8 @@ import QtQuick.Window
 import QtQuick.Layouts
 
 Window {
-    width: 640
-    height: 480
+    width: 1920
+    height: 1080
     visible: true
     title: qsTr("Hello World")
 
@@ -15,8 +15,7 @@ Window {
       Visualization { }
       Navigation { }
       Settings { }
-      Pinout { }
-      Setup { }
+      // Setup { }
     }
 }
 
