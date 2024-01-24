@@ -6,7 +6,7 @@
 class TemperatureData : public TelemetryData
 {
 public:
-    double weight;
+    double temperature;
     double voltage1;
     double voltage2;
 };

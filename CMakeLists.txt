@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_STANDARD_CXX 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(spdlog REQUIRED)
@@ -38,6 +39,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Visualization.qml
     QML_FILES Settings.qml
     QML_FILES Navigation.qml
+    SOURCES launchinhibitor.h launchinhibitor.cpp
     QML_FILES Setup.qml
     QML_FILES MockChart.qml
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
@@ -67,9 +69,14 @@ target_link_libraries(appDAC-Qt
     PRIVATE Qt6::Quick Qt6::Charts spdlog::spdlog
 )
 
+
 include(GNUInstallDirs)
 install(TARGETS appDAC-Qt
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+enable_testing()
+
+include(GoogleTest)
