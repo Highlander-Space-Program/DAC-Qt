@@ -13,11 +13,15 @@ add_executable(
         labjacksink-tests.cpp
 )
 
-target_link_libraries(
-        DAC-Qt_tests
-        libDAC-Qt
-        LabJackM
-        GTest::gtest_main
+if(WIN32)
+    target_include_directories(DAC-Qt_tests PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
+    target_link_libraries(DAC-Qt_tests PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+else()
+    target_link_libraries(DAC-Qt_tests PRIVATE LabJackM)
+endif()
+
+target_link_libraries(DAC-Qt_tests
+        PRIVATE libDAC-Qt GTest::gtest_main
 )
 
 gtest_discover_tests(DAC-Qt_tests)
