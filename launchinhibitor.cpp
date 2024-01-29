@@ -1,42 +1,42 @@
 #include "launchinhibitor.h"
 #include "LabJackM.h"
 #include "broadcast/Broadcaster.h"
-#include "PressureData.h"
-#include "MassData.h"
-#include "TemperatureData.h"
+#include "models/PressureData.h"
+#include "models/ForceData.h"
+#include "models/TemperatureData.h"
 #include <iostream>
 
 LaunchInhibitor::LaunchInhibitor()
 {
     pressureBroadcaster = Broadcaster<PressureData>::getInstance();
     temperatureBroadcaster = Broadcaster<TemperatureData>::getInstance();
-    massBroadcaster = Broadcaster<MassData>::getInstance();
+    massBroadcaster = Broadcaster<ForceData>::getInstance();
 }
 
 //generates callback to get updated values
 void LaunchInhibitor::updatePTValues(std::shared_ptr<Broadcaster<PressureData>> &pressureBroadcaster) {
     pressureBroadcaster->subscribe([this](const PressureData *data) {
         if (data->label == "PT-05") {
-            chamberPres = data->pressure;
+            chamberPres = data->pressure();
         }
         if (data->label == "PT-04") {
-            nosTankPres = data->pressure;
+            nosTankPres = data->pressure();
         }
         if (data->label == "PT-03") {
-            nosFillPres = data->pressure;
+            nosFillPres = data->pressure();
         }
         if (data->label == "PT-02") {
-            ethTankPres = data->pressure;
+            ethTankPres = data->pressure();
         }
         if (data->label == "PT-01") {
-            n2LinePres = data->pressure;
+            n2LinePres = data->pressure();
         }
     });
 }
 
 //updates LC Values
-void LaunchInhibitor::updateLCValues(std::shared_ptr<Broadcaster<MassData>> &massBroadcaster) {
-    massBroadcaster->subscribe([this](const MassData *data) {
+void LaunchInhibitor::updateLCValues(std::shared_ptr<Broadcaster<ForceData>> &massBroadcaster) {
+    massBroadcaster->subscribe([this](const ForceData *data) {
         if (data->label == "LC-01") {
             thrustLoad = data->mass;
         }

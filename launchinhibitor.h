@@ -2,9 +2,9 @@
 #define LAUNCHINHIBITOR_H
 
 
-#include "MassData.h"
-#include "PressureData.h"
-#include "TemperatureData.h"
+#include "models/ForceData.h"
+#include "models/PressureData.h"
+#include "models/TemperatureData.h"
 #include "broadcast/Broadcaster.h"
 
 class LaunchInhibitor
@@ -50,13 +50,13 @@ public:
 
     std::shared_ptr<Broadcaster<PressureData>> pressureBroadcaster;
     std::shared_ptr<Broadcaster<TemperatureData>> temperatureBroadcaster;
-    std::shared_ptr<Broadcaster<MassData>> massBroadcaster;
+    std::shared_ptr<Broadcaster<ForceData>> massBroadcaster;
 
     //Functions
     void updateInhibit(const int handle);
     void toggleManualOveride();
     void updatePTValues(std::shared_ptr<Broadcaster<PressureData>> &pressureBroadcaster);
-    void updateLCValues(std::shared_ptr<Broadcaster<MassData>> &massBroadcaster);
+    void updateLCValues(std::shared_ptr<Broadcaster<ForceData>> &massBroadcaster);
     void updateTCValues(std::shared_ptr<Broadcaster<TemperatureData>> &temperatureBroadcaster);
     bool checkAll();
     bool checkNOSTank();
