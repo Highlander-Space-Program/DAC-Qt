@@ -10,7 +10,7 @@ Drawer {
   width: 0.33 * parent.width
   height: parent.height
   modal: true
-  dragMargin: 16
+  dragMargin: 32
 
   ColumnLayout {
     id: layout
@@ -26,6 +26,17 @@ Drawer {
       stack: root.stack
       text: "Settings"
       index: 1
+    }
+
+    MenuSeparator {
+      Layout.fillWidth: true
+    }
+
+    Button {
+      Layout.fillWidth: true
+      flat: true
+      text: "Exit"
+      onClicked: () => { Qt.quit() }
     }
   }
 }

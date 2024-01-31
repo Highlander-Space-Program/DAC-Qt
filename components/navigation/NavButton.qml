@@ -16,6 +16,7 @@ Item {
       id: button
 
       anchors.fill:parent
+      flat: true
 
       onClicked: () => { stack.currentIndex = index; }
     }
