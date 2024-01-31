@@ -8,15 +8,22 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
+  GridLayout {
+    id: root
+    anchors.fill: parent
+
+    Navigation { stack: content }
+
     StackLayout {
-      id: root
-      anchors.fill: parent
+      id: content
+
+      Layout.fillWidth: true
+      Layout.fillHeight: true
 
       Visualization { }
-      Navigation { }
       Settings { }
-      // Setup { }
     }
+  }
 }
 
 
