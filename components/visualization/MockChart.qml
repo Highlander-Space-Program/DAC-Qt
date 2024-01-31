@@ -10,6 +10,7 @@ Item {
 
     title: "Thrust"
     legend.visible: false
+    theme: ChartView.ChartThemeDark
 
     DateTimeAxis {
       id: axis_x

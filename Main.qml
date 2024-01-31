@@ -1,12 +1,14 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
 
-Window {
-    width: 1920
-    height: 1080
-    visible: true
-    title: qsTr("Hello World")
+ApplicationWindow {
+  id: widnow
+  width: 1920
+  height: 1080
+  visible: true
+  title: qsTr("Hello World")
 
   GridLayout {
     id: root
