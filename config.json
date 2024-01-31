@@ -1,0 +1,11 @@
+{
+  "labjack" : {
+    "identifier" : "ANY",
+    "device_type" : "ANY",
+    "connection_type" : "ANY"
+  },
+  "influx" : {
+    "address" : "localhost",
+    "token" : "<token>"
+  }
+}

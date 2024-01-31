@@ -42,6 +42,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Setup.qml
     QML_FILES components/visualization/MockChart.qml
     QML_FILES components/navigation/NavButton.qml
+    SOURCES Config.h
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
     SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp sinks/LabJackSinkStrategy.h
     SOURCES broadcast/Sink.h broadcast/Broadcaster.h
@@ -70,6 +71,7 @@ target_link_libraries(appDAC-Qt
     PRIVATE Qt6::Quick Qt6::Charts spdlog::spdlog
 )
 
+configure_file("config.json" "config.json" COPYONLY)
 
 include(GNUInstallDirs)
 install(TARGETS appDAC-Qt
@@ -77,7 +79,3 @@ install(TARGETS appDAC-Qt
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-
-enable_testing()
-
-include(GoogleTest)
