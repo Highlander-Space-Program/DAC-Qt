@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(spdlog REQUIRED)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
+add_subdirectory("extern/influxdb-cxx")
 
 qt_standard_project_setup()
 
@@ -15,6 +16,7 @@ option(PACKAGE_TESTS "Build with Tests" ON)
 if(PACKAGE_TESTS)
     enable_testing()
     include(GoogleTest)
+    add_subdirectory(tests)
     add_library(libDAC-Qt
         models/ForceData.h
         models/PressureData.h
@@ -25,7 +27,6 @@ if(PACKAGE_TESTS)
         broadcast/Sink.h
         broadcast/Broadcaster.h
     )
-    add_subdirectory(tests)
 endif()
 
 qt_add_executable(appDAC-Qt
@@ -68,7 +69,7 @@ else()
 endif()
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick Qt6::Charts spdlog::spdlog
+    PRIVATE Qt6::Quick Qt6::Charts LabJackM spdlog::spdlog InfluxData::InfluxDB
 )
 
 configure_file("config.json" "config.json" COPYONLY)
