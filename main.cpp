@@ -38,6 +38,14 @@ int main(int argc, char *argv[])
     }
   });
 
+  LabJackSink lj_sink;
+  try {
+    lj_sink.openS("ANY", "-2", "ANY");
+  } catch (LabJackException &e) {
+    
+  }
+//  lj_sink.start_stream(100, 100, std::make_shared<InjectorTestStrategy>(pressureBroadcaster));
+
   QApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
