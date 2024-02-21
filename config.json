@@ -5,7 +5,8 @@
     "connection_type" : "ANY"
   },
   "influx" : {
-    "address" : "localhost",
+    "address" : "https://localhost:8086/",
+    "db" : "<bucket>",
     "token" : "<token>"
   }
 }
