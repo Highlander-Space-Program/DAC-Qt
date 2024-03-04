@@ -45,7 +45,9 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES components/navigation/NavButton.qml
     SOURCES Config.h
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
-    SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp sinks/LabJackSinkStrategy.h
+    SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp
+    SOURCES sinks/LabJackSinkStrategy.h
+    SOURCES sinks/ColdFlowSinkStrategy.cpp sinks/ColdFlowSinkStrategy.h
     SOURCES broadcast/Sink.h broadcast/Broadcaster.h
     SOURCES launchinhibitor.h launchinhibitor.cpp
 )

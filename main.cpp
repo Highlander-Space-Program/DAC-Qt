@@ -8,6 +8,8 @@
 #include "models/TemperatureData.h"
 #include "models/PressureData.h"
 #include "Config.h"
+#include "sinks/LabJackSink.h"
+#include "sinks/ColdFlowSinkStrategy.h"
 
 #include <spdlog/spdlog.h>
 
@@ -37,6 +39,36 @@ int main(int argc, char *argv[])
       std::cerr << e.what() << std::endl;
     }
   });
+
+  auto db = influxdb::InfluxDBFactory::Get("<token>@localhost:8086?db=cold_flow");
+  //pressureBroadcaster->subscribe([&db](const PressureData *data){
+  //  try {
+  //    db->write(influxdb::Point{"proof_test_2"}
+  //                      .addField("pressure", data->pressure())
+  //                      .addField("voltage", data->voltage())
+  //                      .addTag("sensor", data->label)
+  //    );
+  //  } catch (influxdb::InfluxDBException &e) {
+  //    std::cerr << e.what() << std::endl;
+  //  }
+  //});
+
+  auto pt02Data = std::make_shared<PressureData>(0, 1600, 0.5, 4.5);
+  auto pt03Data = std::make_shared<PressureData>(0, 1600, 0.5, 4.5);
+  auto pt04Data = std::make_shared<CalibratedPressureData>(425.37, -222.30);
+  auto pt05Data = std::make_shared<CalibratedPressureData>(406.16, -214.30);
+  auto lc01Data = std::make_shared<ForceData>(500, 0.002, 5);
+  auto lc02Data = std::make_shared<ForceData>(1000, 0.002, 5);
+  auto lc03Data = std::make_shared<ForceData>(1000, 0.002, 5);
+  auto coldFlowStrategy = std::make_shared<ColdFlowSinkStrategy>(pt02Data,
+                                                                 pt03Data,
+                                                                 pt04Data,
+                                                                 pt05Data,
+                                                                 lc01Data,
+                                                                 lc02Data,
+                                                                 lc03Data,
+                                                                 pressureBroadcaster,
+                                                                 forceBroadcaster);
 
   LabJackSink lj_sink;
   try {
