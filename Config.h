@@ -13,8 +13,11 @@ public:
   };
   class InfluxConfig {
   public:
+    std::string protocol;
     std::string address;
+    std::string port;
     std::string token;
+    std::string db;
   };
 
   LabJackConfig labjack;

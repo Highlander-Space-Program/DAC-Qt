@@ -40,7 +40,10 @@ int main(int argc, char *argv[])
     }
   });
 
-  auto db = influxdb::InfluxDBFactory::Get("<token>@localhost:8086?db=cold_flow");
+  std::stringstream ss;
+  ss << config.influx.protocol << "://" << config.influx.token << '@' << config.influx.address << ':' << config.influx.port << "?db=" << config.influx.db;
+  std::cout << "Connection string: " << ss.str() << std::endl;
+  auto db = influxdb::InfluxDBFactory::Get(ss.str());
   //pressureBroadcaster->subscribe([&db](const PressureData *data){
   //  try {
   //    db->write(influxdb::Point{"proof_test_2"}
@@ -71,12 +74,8 @@ int main(int argc, char *argv[])
                                                                  forceBroadcaster);
 
   LabJackSink lj_sink;
-  try {
-    lj_sink.openS("ANY", "-2", "ANY");
-  } catch (LabJackException &e) {
-    
-  }
-//  lj_sink.start_stream(100, 100, std::make_shared<InjectorTestStrategy>(pressureBroadcaster));
+  lj_sink.openS(config.labjack.device_type, config.labjack.identifier, config.labjack.connection_type);
+  lj_sink.start_stream(1, 1, coldFlowStrategy);
 
   QApplication app(argc, argv);
 
