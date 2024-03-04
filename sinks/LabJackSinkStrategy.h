@@ -11,6 +11,7 @@
 class LabJackSinkStrategy {
 public:
   virtual ~LabJackSinkStrategy() =default;
+  virtual void configure_device(const LabJackSink *sink) { }
   virtual const std::vector<std::string> address_list() const =0;
   virtual const std::vector<std::string> address_labels() const =0;
   virtual void process(const double data[], const LabJackSink::stream_callback_args *args) =0;
@@ -27,7 +28,9 @@ public:
   void process(const double data[], const LabJackSink::stream_callback_args *args) override {
     const size_t num_addresses = args->strategy->address_list().size();
     for (size_t i {0}; i < args->scans_per_read*num_addresses; i++) {
-      auto* p = new PressureData(data[i]);
+      auto* p = new PressureData;
+      p->voltage(data[i]);
+      p->pressure(p->from_voltage(data[i]));
       p->label = args->strategy->address_labels()[i%num_addresses];
       pressureBroadcaster_->broadcast(p);
     }

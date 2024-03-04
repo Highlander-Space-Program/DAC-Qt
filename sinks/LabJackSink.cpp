@@ -64,6 +64,7 @@ void LabJackSink::openS(const std::string &device_type,
 void LabJackSink::start_stream(int scans_per_read,
                               double scan_rate,
                               std::shared_ptr<LabJackSinkStrategy> strategy) {
+  strategy->configure_device(this);
 
   const size_t num_addresses = strategy->address_list().size();
   int* scan_list = new int[num_addresses];
