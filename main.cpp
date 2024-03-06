@@ -2,7 +2,9 @@
 #include <QQmlApplicationEngine>
 #include <QJsonDocument>
 #include <QFile>
+#include <QDir>
 
+#include "sinks/LabJackSink.h"
 #include "broadcast/Broadcaster.h"
 #include "models/ForceData.h"
 #include "models/TemperatureData.h"
@@ -49,7 +51,7 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
-  const QUrl url(u"qrc:/DAC-Qt/Main.qml"_qs);
+  const QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath("DAC-Qt/Main.qml"));
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
     &app, []() { QCoreApplication::exit(-1); },
     Qt::QueuedConnection);
