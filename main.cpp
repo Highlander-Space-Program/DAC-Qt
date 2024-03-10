@@ -27,10 +27,14 @@ int main(int argc, char *argv[])
   auto temperatureBroadcaster = Broadcaster<TemperatureData>::getInstance();
   auto pressureBroadcaster = Broadcaster<PressureData>::getInstance();
 
-  auto db = influxdb::InfluxDBFactory::Get("http://<token>@localhost:8086?db=dry_test");
-  pressureBroadcaster->subscribe([&db](const PressureData *data){
+  std::stringstream ss;
+  ss << config.influx.protocol << "://" << config.influx.token << '@' << config.influx.address << ':' << config.influx.port << "?db=" << config.influx.db;
+  std::cout << "Connection string: " << ss.str() << std::endl;
+  std::string measurement = "cold_flow_1";
+  auto db = influxdb::InfluxDBFactory::Get(ss.str());
+  pressureBroadcaster->subscribe([&db, &measurement](const PressureData *data){
     try {
-      db->write(influxdb::Point{"dry_test"}
+      db->write(influxdb::Point{measurement}
                         .addField("pressure", data->pressure())
                         .addField("voltage", data->voltage())
                         .addTag("sensor", data->label)
@@ -39,27 +43,23 @@ int main(int argc, char *argv[])
       std::cerr << e.what() << std::endl;
     }
   });
+  forceBroadcaster->subscribe([&db, &measurement](const ForceData *data){
+    try {
+      db->write(influxdb::Point{measurement}
+                        .addField("force", data->force())
+                        .addField("voltage", data->voltage())
+                        .addTag("sensor", data->label)
+      );
+    } catch (influxdb::InfluxDBException &e) {
+      std::cerr << e.what() << std::endl;
+    }
+  });
 
-  std::stringstream ss;
-  ss << config.influx.protocol << "://" << config.influx.token << '@' << config.influx.address << ':' << config.influx.port << "?db=" << config.influx.db;
-  std::cout << "Connection string: " << ss.str() << std::endl;
-  auto db = influxdb::InfluxDBFactory::Get(ss.str());
-  //pressureBroadcaster->subscribe([&db](const PressureData *data){
-  //  try {
-  //    db->write(influxdb::Point{"proof_test_2"}
-  //                      .addField("pressure", data->pressure())
-  //                      .addField("voltage", data->voltage())
-  //                      .addTag("sensor", data->label)
-  //    );
-  //  } catch (influxdb::InfluxDBException &e) {
-  //    std::cerr << e.what() << std::endl;
-  //  }
-  //});
-
-  auto pt02Data = std::make_shared<PressureData>(0, 1600, 0.5, 4.5);
-  auto pt03Data = std::make_shared<PressureData>(0, 1600, 0.5, 4.5);
-  auto pt04Data = std::make_shared<CalibratedPressureData>(425.37, -222.30);
-  auto pt05Data = std::make_shared<CalibratedPressureData>(406.16, -214.30);
+  auto pt02Data = std::make_shared<CalibratedPressureData>(425.37, -222.30); // PT 6
+  auto pt03Data = std::make_shared<CalibratedPressureData>(410.41, -207.26); // PT 5
+  auto pt04Data = std::make_shared<PressureData>(0, 1600, 0.5, 4.5); // PT 3
+  auto pt05Data = std::make_shared<PressureData>(0, 1600, 0.5, 4.5); // PT 1
+  auto pt06Data = std::make_shared<CalibratedPressureData>(406.16, -214.30); // PT 7
   auto lc01Data = std::make_shared<ForceData>(500, 0.002, 5);
   auto lc02Data = std::make_shared<ForceData>(1000, 0.002, 5);
   auto lc03Data = std::make_shared<ForceData>(1000, 0.002, 5);
@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
                                                                  pt03Data,
                                                                  pt04Data,
                                                                  pt05Data,
+                                                                 pt06Data,
                                                                  lc01Data,
                                                                  lc02Data,
                                                                  lc03Data,
@@ -75,7 +76,7 @@ int main(int argc, char *argv[])
 
   LabJackSink lj_sink;
   lj_sink.openS(config.labjack.device_type, config.labjack.identifier, config.labjack.connection_type);
-  lj_sink.start_stream(1, 1, coldFlowStrategy);
+  lj_sink.start_stream(1, 10, coldFlowStrategy);
 
   QApplication app(argc, argv);
 
@@ -97,8 +98,11 @@ Config read_config() {
     config.labjack.identifier = json["labjack"]["identifier"].toString().toStdString();
     config.labjack.device_type = json["labjack"]["device_type"].toString().toStdString();
     config.labjack.connection_type= json["labjack"]["connection"].toString().toStdString();
+    config.influx.protocol = json["influx"]["protocol"].toString().toStdString();
     config.influx.address = json["influx"]["address"].toString().toStdString();
+    config.influx.port = json["influx"]["port"].toString().toStdString();
     config.influx.token = json["influx"]["token"].toString().toStdString();
+    config.influx.db = json["influx"]["db"].toString().toStdString();
     return config;
   } else {
     spdlog::error("Could not open config.json: {}", f.errorString().toStdString());

@@ -9,12 +9,13 @@ public:
                        std::shared_ptr<PressureData> pt03DataPrototype,
                        std::shared_ptr<PressureData> pt04DataPrototype,
                        std::shared_ptr<PressureData> pt05DataPrototype,
+                       std::shared_ptr<PressureData> pt06DataPrototype,
                        std::shared_ptr<ForceData> lc01DataPrototype,
                        std::shared_ptr<ForceData> lc02DataPrototype,
                        std::shared_ptr<ForceData> lc03DataPrototype,
                        std::shared_ptr<Broadcaster<PressureData>> pressureBroadcaster,
                        std::shared_ptr<Broadcaster<ForceData>> forceBroadcaster)
-          : pt_prototypes_{std::move(pt02DataPrototype), std::move(pt03DataPrototype), std::move(pt04DataPrototype), std::move(pt05DataPrototype)},
+          : pt_prototypes_{std::move(pt02DataPrototype), std::move(pt03DataPrototype), std::move(pt04DataPrototype), std::move(pt05DataPrototype), std::move(pt06DataPrototype)},
             lc_prototypes_{std::move(lc01DataPrototype), std::move(lc02DataPrototype), std::move(lc03DataPrototype)},
             pressure_broadcaster_{std::move(pressureBroadcaster)},
             force_broadcaster_{std::move(forceBroadcaster)} { }
@@ -48,11 +49,11 @@ public:
   }
 
 private:
-  static const size_t num_pts_ = 4;
+  static const size_t num_pts_ = 5;
   static const size_t num_lcs_ = 3;
 
-  const std::vector<std::string> address_list_ = {"AIN0", "AIN1", "AIN2", "AIN3", "AIN6", "AIN8", "AIN10"};
-  const std::vector<std::string> address_labels_ = {"PT-02", "PT-03", "PT-04", "PT-05", "LC-01", "LC-02", "LC-03"};
+  const std::vector<std::string> address_list_ = {"AIN0", "AIN1", "AIN2", "AIN3", "AIN12", "AIN6", "AIN8", "AIN10"};
+  const std::vector<std::string> address_labels_ = {"PT-02", "PT-03", "PT-04", "PT-05", "PT-06", "LC-01", "LC-02", "LC-03"};
   const std::shared_ptr<Broadcaster<PressureData>> pressure_broadcaster_;
   const std::shared_ptr<Broadcaster<ForceData>> force_broadcaster_;
 
