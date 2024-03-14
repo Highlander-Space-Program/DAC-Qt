@@ -1,17 +1,39 @@
 cmake_minimum_required(VERSION 3.16)
-
 project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Find packages
-find_package(Qt6 6.4 REQUIRED COMPONENTS Widgets Charts Quick)
+add_definitions(-DSPDLOG_FMT_EXTERNAL=1)
+
+include(${CMAKE_BINARY_DIR}/conan-dependencies/conan_toolchain.cmake)
+message(STATUS "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
+
+message(STATUS "CMAKE_PROGRAM_PATH: ${CMAKE_PROGRAM_PATH}")
+message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+message(STATUS "CMAKE_INCLUDE_PATH: ${CMAKE_INCLUDE_PATH}")
+message(STATUS "CMAKE_LIBRARY_PATH: ${CMAKE_LIBRARY_PATH}")
+include_directories(${CMAKE_INCLUDE_PATH})
+
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}")
+# list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/generators")
+
+# Include the conan toolchain file
+find_package(Qt6 6.6.2 COMPONENTS Core Widgets Charts Quick REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(nlohmann_json REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system filesystem)
+find_package(InfluxDB REQUIRED)
 
-# Add external libraries or subdirectories
-add_subdirectory("extern/influxdb-cxx")
+# Setup Qt project
+qt_standard_project_setup()
+qt_policy(SET QTP0001 NEW)
+
+if(NOT TARGET Boost::Boost AND TARGET Boost::boost)
+  add_library(Boost::Boost INTERFACE IMPORTED)
+  set_property(TARGET Boost::Boost PROPERTY INTERFACE_LINK_LIBRARIES Boost::boost)
+endif()
 
 # Setup Qt project
 qt_standard_project_setup()
@@ -22,7 +44,7 @@ option(PACKAGE_TESTS "Build with Tests" ON)
 if(PACKAGE_TESTS)
     enable_testing()
     include(GoogleTest)
-    add_subdirectory(tests)
+    # add_subdirectory(test)
     add_library(libDAC-Qt
         models/ForceData.h
         models/PressureData.h
@@ -42,37 +64,17 @@ qt_add_executable(appDAC-Qt
     # Add other source files as needed
 )
 
-# Define QML module
-qt_add_qml_module(appDAC-Qt
-    URI DAC-Qt
-    VERSION 1.0
-    QML_FILES 
-        Main.qml 
-        Visualization.qml 
-        Settings.qml 
-        Navigation.qml 
-        Setup.qml 
-        components/visualization/MockChart.qml
-        components/navigation/NavButton.qml
-    SOURCES 
-        Config.h 
-        models/ForceData.h 
-        models/PressureData.h 
-        models/TelemetryData.h 
-        models/TemperatureData.h
-        sinks/LabJackSink.h 
-        sinks/LabJackSink.cpp 
-        sinks/LabJackSinkStrategy.h
-        broadcast/Sink.h 
-        broadcast/Broadcaster.h 
-        launchinhibitor.h 
-        launchinhibitor.cpp
-)
-
 # Platform-specific configurations
 if(WIN32)
     target_include_directories(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
+    target_include_directories(libDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
     target_link_libraries(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+    target_link_libraries(libDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
+    message (STATUS "Including: LabJack/Drivers and LabJackM.lib on Windows")
+    if(MSVC)
+        target_compile_options(appDAC-Qt PRIVATE "/Zc:__cplusplus" "/permissive-")
+        target_compile_options(libDAC-Qt PRIVATE "/Zc:__cplusplus" "/permissive-")
+    endif()
 else()
     set(CMAKE_MACOSX_RPATH 1)
     set(CMAKE_INSTALL_RPATH "/usr/local/lib")
@@ -112,14 +114,53 @@ else()
     endif()
 endif()
 
+# Define QML module
+qt_add_qml_module(appDAC-Qt
+    URI DAC-Qt
+    VERSION 1.0
+    QML_FILES 
+        Main.qml 
+        Visualization.qml 
+        Settings.qml 
+        Navigation.qml 
+        Setup.qml 
+        components/visualization/MockChart.qml
+        components/navigation/NavButton.qml
+    SOURCES 
+        Config.h 
+        models/ForceData.h 
+        models/PressureData.h 
+        models/TelemetryData.h 
+        models/TemperatureData.h
+        sinks/LabJackSink.h 
+        sinks/LabJackSink.cpp 
+        sinks/LabJackSinkStrategy.h
+        broadcast/Sink.h 
+        broadcast/Broadcaster.h 
+        launchinhibitor.h 
+        launchinhibitor.cpp
+)
+
 # Common link libraries
 target_link_libraries(appDAC-Qt
     PRIVATE 
+    Qt6::Core 
     Qt6::Widgets 
     Qt6::Charts 
     Qt6::Quick 
     spdlog::spdlog 
-    InfluxData::InfluxDB 
+    InfluxData::InfluxDB
+    nlohmann_json::nlohmann_json
+)
+
+target_link_libraries(libDAC-Qt
+    PRIVATE 
+    Qt6::Core 
+    Qt6::Widgets 
+    Qt6::Charts 
+    Qt6::Quick 
+    spdlog::spdlog 
+    InfluxData::InfluxDB
     nlohmann_json::nlohmann_json
 )
 

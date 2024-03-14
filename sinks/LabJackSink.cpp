@@ -12,20 +12,19 @@ const char* LabJackException::what() const noexcept {
 }
 
 LabJackSink::LabJackSink() {
-
   stream_callback_ = [](void* args){
     auto stream_args = reinterpret_cast<stream_callback_args*>(args);
 
     const size_t size = stream_args->scans_per_read * stream_args->strategy->address_list().size();
-    double arr[size];
+    std::vector<double> arr(size); // Use std::vector for dynamic allocation
     int error, device_scan_backlog, ljm_scan_backlog;
     error = LJM_eStreamRead(stream_args->handle,
-                            arr,
+                            arr.data(), // Pass pointer to the underlying array
                             &device_scan_backlog,
                             &ljm_scan_backlog);
     if (error) { throw LabJackException(error); }
 
-    stream_args->strategy->process(arr, stream_args);
+    stream_args->strategy->process(arr.data(), stream_args);
   };
 }
 

@@ -1,6 +1,7 @@
 [requires]
 nlohmann_json/[>=3.11.2]
 spdlog/[>=1.13.0]
+influxdb-cxx/[>=0.7.2]
 
 [generators]
 CMakeDeps
