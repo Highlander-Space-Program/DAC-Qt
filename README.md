@@ -110,17 +110,9 @@ To see if the installation worked properly, try the following. All of these shou
 ```conan profile detect```
 This step is very important. Ensure that the profile it creates has cpp 17 or higher, or cpr wont install properly. If you need to change it, run the following commands:
 ```nano ~/.conan2/profiles/default```
-```conan install ./extern/influxdb-cxx/ --profile=default --build=missing -of=./extern/influxdb-cxx/build```
-```conan install conanfile.txt -of=build -g CMakeDeps -g CMakeToolchain```
 
-
-
-```conan install . -if=build --build-require --build```
-```conan install . -if=build --build=missing -g=cmake_paths -g=cmake_find_package -g=json -g=cmake```
-
-```conan install . -if=build --build-require --build```
+```conan install . -if=build --build-require --build=missing```
 ```cmake . -G "Visual Studio 17 2022" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DINFLUXCXX_TESTING=OFF -DINFLUXCXX_WITH_BOOST=ON -Bbuild -DCMAKE_CXX_STANDARD=17 --toolchain ./build/conan_toolchain.cmake```
-
 
 ```echo 'export CMAKE_PREFIX_PATH=/c/Users/bmarc/Desktop/UCR/SPACE/DAC-Qt/build' >> ~/.bashrc```
 
