@@ -50,7 +50,8 @@ Run:
 
 Verify it by running
 ```choco --version```
-    
+It should be at 2.2.2 or higher
+
 #### Install vscode
 Go to the following link and click the installer. 
 Select any options you like while installing. 
@@ -92,22 +93,28 @@ https://www.qt.io/download-qt-installer-oss
 
 4. Click the Qt drop down and ensure that the latest stable version is checked, and then ensure that Qt Charts is also checked (under Additional Libraries). Continue through the rest of the install.
 
+```pip install conan=1```
 ```winget install -e --id Kitware.CMake```
 ```winget install -e --id JFrog.Conan```
 ```choco install visualstudio2022buildtools -y --execution-timeout=10800 --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"``` (This will also take a while, for my computer with a slow network it was about 2 hours)
 ```echo 'export PATH=$PATH:/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64' >> ~/.bashrc```
-```source ~/.bashrc```
 ```echo 'export CMAKE_PREFIX_PATH=/c/Qt/6.6.2/mingw_64' >> ~/.bashrc```
+```source ~/.bashrc```
 
 To see if the installation worked properly, try the following. All of these should return values and not error:
 ```cmake --version```
+This should be cmake > 3.
 ```conan --version```
+This should be 1.63.0
 ```g++ --version```
+This shouldn't error
 ```nmake --version```
+This should show something
 ```ninja --version```
+This shouldn't error
 
 ```mkdir build```
-```conan profile detect```
+```conan profile list```
 This step is very important. Ensure that the profile it creates has cpp 17 or higher, or cpr wont install properly. If you need to change it, run the following commands:
 ```nano ~/.conan2/profiles/default```
 
