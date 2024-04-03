@@ -32,7 +32,7 @@ winget install -e --id Kitware.CMake
 Write-Host "CMake installation complete."
 
 Write-Host "Installing Conan with winget..."
-pip install conan
+pip install conan==1.63.0
 Write-Host "Conan installation complete."
 
 Write-Host "Installing Visual Studio Build Tools with Chocolatey. This may take some time..."
