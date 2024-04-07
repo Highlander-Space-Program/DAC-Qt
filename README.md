@@ -157,4 +157,12 @@ First ensure packages are up to date
 
 
 ### Linux
-  
+https://www.qt.io/download
+After the file is downloaded, you will need to make it runnable with
+```chmod +x /path/to/downloaded/file```
+The specific command I used was chmod +x ~/Downloads/qt-unified-linux-x64-4.7.0-online.run
+
+Then run the file by just typing the name of it or running it in finder.
+```~/Downloads/qt-unified-linux-x64-4.7.0-online.run```
+
+Follow the steps
