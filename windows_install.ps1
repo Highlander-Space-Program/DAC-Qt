@@ -50,9 +50,57 @@ Write-Host "Initializing git submodules..."
 git submodule update --init --recursive
 Write-Host "Git submodules initialized."
 
+# Check for cmake version > 3
+try {
+    $cmakeVersion = cmake --version | Select-String -Pattern "version (\d+\.\d+)" -AllMatches | ForEach-Object { $_.Matches.Groups[1].Value }
+    If ([version]$cmakeVersion -lt [version]"3.0") {
+        Write-Host "cmake version is less than 3. Please update cmake."
+        Exit
+    }
+} catch {
+    Write-Host "cmake is not installed or not found in PATH."
+    Exit
+}
+
+# Check for conan version 1.63.0
+try {
+    $conanVersion = conan --version | Select-String -Pattern "version (\d+\.\d+\.\d+)" -AllMatches | ForEach-Object { $_.Matches.Groups[1].Value }
+    If ($conanVersion -ne "1.63.0") {
+        Write-Host "conan version is not 1.63.0. Found version $conanVersion. Please install the correct version."
+        Exit
+    }
+} catch {
+    Write-Host "conan is not installed or not found in PATH."
+    Exit
+}
+
+# Check for g++ availability
+try {
+    g++ --version
+} catch {
+    Write-Host "g++ is not installed or not found in PATH."
+    Exit
+}
+
+# Check for nmake availability
+try {
+    nmake --version
+} catch {
+    Write-Host "nmake is not installed or not found in PATH."
+    Exit
+}
+
+# Check for ninja availability
+try {
+    ninja --version
+} catch {
+    Write-Host "ninja is not installed or not found in PATH."
+    Exit
+}
+
 # Clean up and prepare the build directory
 Write-Host "Preparing the build directory..."
-$buildDir = "C:\Users\bmarc\Desktop\UCR\SPACE\DAC-Qt\build"
+$buildDir = Join-Path -Path (Get-Location) -ChildPath "build"
 if (Test-Path $buildDir) {
     Remove-Item -Path $buildDir -Recurse -Force
     Write-Host "Existing build directory removed."

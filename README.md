@@ -24,6 +24,8 @@ export DYLD_LIBRARY_PATH=/usr/local/lib
 
 ## Setup (Windows)
 
+```powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(pwd -W)/windows_install.ps1"```
+
 #### Install and Setup winget
 This is based off of the link below
 https://learn.microsoft.com/en-us/windows/package-manager/winget/
@@ -126,6 +128,7 @@ This step is very important. Ensure that the profile it creates has cpp 17 or hi
 
 in extern/inf/build
 cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE=/c/Users/bmarc/Desktop/UCR/SPACE/DAC-Qt/extern/influxdb-cxx/build/conan_toolchain.cmake -DINFLUXCXX_TESTING=OFF -DINFLUXCXX_WITH_BOOST=ON -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
+
 
 #### Install LabJack libraries:
 Go to the following link and install the executable. 
