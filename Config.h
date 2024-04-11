@@ -18,6 +18,7 @@ public:
     std::string port;
     std::string token;
     std::string db;
+    std::string measurement;
   };
 
   LabJackConfig labjack;

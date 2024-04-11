@@ -8,8 +8,8 @@
     "protocol" : "http",
     "address" : "localhost",
     "port" : "8086",
-    "db" : "cold_flow",
-    "token" : "<token>"
     "db" : "poseidon",
+    "measurement": "<measurement>",
+    "token" : "<token>"
   }
 }

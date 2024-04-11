@@ -30,7 +30,8 @@ int main(int argc, char *argv[])
   std::stringstream ss;
   ss << config.influx.protocol << "://" << config.influx.token << '@' << config.influx.address << ':' << config.influx.port << "?db=" << config.influx.db;
   std::cout << "Connection string: " << ss.str() << std::endl;
-  std::string measurement = "cold_flow_1";
+  std::string measurement = config.influx.measurement;
+  std::cout <<  measurement << std::endl;
   auto db = influxdb::InfluxDBFactory::Get(ss.str());
   pressureBroadcaster->subscribe([&db, &measurement](const PressureData *data){
     try {
@@ -103,6 +104,7 @@ Config read_config() {
     config.influx.port = json["influx"]["port"].toString().toStdString();
     config.influx.token = json["influx"]["token"].toString().toStdString();
     config.influx.db = json["influx"]["db"].toString().toStdString();
+    config.influx.measurement = json["influx"]["measurement"].toString().toStdString();
     return config;
   } else {
     spdlog::error("Could not open config.json: {}", f.errorString().toStdString());
