@@ -132,6 +132,8 @@ qt_add_qml_module(appDAC-Qt
         models/PressureData.h 
         models/TelemetryData.h 
         models/TemperatureData.h
+        models/TankFill.h
+        models/TankFill.cpp
         sinks/LabJackSink.h 
         sinks/LabJackSink.cpp 
         sinks/LabJackSinkStrategy.h
