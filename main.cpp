@@ -20,7 +20,8 @@ Config read_config();
 int main(int argc, char *argv[])
 {
   spdlog::info("Starting DAC-Qt");
-
+  QApplication app(argc, argv);
+  
   Config config = read_config();
 
   auto forceBroadcaster = Broadcaster<ForceData>::getInstance();
@@ -48,8 +49,6 @@ int main(int argc, char *argv[])
   }
 //  lj_sink.start_stream(100, 100, std::make_shared<InjectorTestStrategy>(pressureBroadcaster));
 
-  QApplication app(argc, argv);
-
   QQmlApplicationEngine engine;
   const QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath("DAC-Qt/Main.qml"));
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
@@ -61,7 +60,11 @@ int main(int argc, char *argv[])
 }
 
 Config read_config() {
-  QFile f("config.json");
+  QString path = QCoreApplication::applicationDirPath() + "/config.json";
+  spdlog::info("Trying to open config file at: {}", path.toStdString());
+  QFile f(path);
+
+  // QFile f("config.json");
   if(f.open(QIODevice::ReadOnly)) {
     Config config;
     QJsonDocument json = QJsonDocument::fromJson(f.readAll());
