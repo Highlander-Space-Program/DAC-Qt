@@ -1,9 +1,0 @@
-{
-    "version": 4,
-    "vendor": {
-        "conan": {}
-    },
-    "include": [
-        "C:\\Users\\bmarc\\Desktop\\UCR\\SPACE\\DAC-Qt\\build\\CMakePresets.json"
-    ]
-}

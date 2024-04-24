@@ -20,24 +20,32 @@ install_pip_macos() {
     fi
     # Install Python. Pip comes with Python.
     brew install python
+    brew install ninja
 }
 
 # Function to check if pip, conan, and cmake are correctly installed
 check_installations() {
+    
     if ! command -v pip &> /dev/null; then
         echo "pip could not be found. Exiting..."
         exit 1
     fi
+    echo 'Pip found!'
 
     if ! command -v cmake &> /dev/null; then
         echo "cmake could not be found. Exiting..."
         exit 1
     fi
+    echo 'Cmake found!'
 
-    # Check for Conan installation and version
     if command -v conan &> /dev/null; then
-        conan_version=$(conan --version | grep -oP 'Conan version \K[^\s]+')
-        if [ "$conan_version" != "1.63.0" ]; then
+        conan_version_output=$(conan --version)
+        echo "Conan version output: $conan_version_output"  # For debugging
+        conan_version=$(echo "$conan_version_output" | grep -oE 'Conan version [0-9]+\.[0-9]+\.[0-9]+' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        if [ -z "$conan_version" ]; then
+            echo "Failed to parse Conan version. Exiting..."
+            exit 1
+        elif [ "$conan_version" != "1.63.0" ]; then
             echo "Conan version 1.63.0 is required. Found version $conan_version. Exiting..."
             exit 1
         fi
@@ -45,6 +53,7 @@ check_installations() {
         echo "Conan could not be found. Exiting..."
         exit 1
     fi
+
 }
 
 # Function to install cmake for both macOS and Linux
@@ -80,9 +89,17 @@ install_main() {
     check_installations
 
     # Continue with build and setup
-    mkdir -p build && cd build
+    mkdir -p build
+
+    echo 'Changing directory to build'
+    cd build
+
+    echo 'Running CMake...'
     cmake ..
+    echo 'Cmake Complete!'
+    echo 'Running Make...'
     make
+    echo 'Make Complete!'
     if [[ "$OSTYPE" == "darwin"* ]]; then
         export DYLD_LIBRARY_PATH=/usr/local/lib
         echo 'export DYLD_LIBRARY_PATH=/usr/local/lib' >> ~/.bashrc

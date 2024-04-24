@@ -11,8 +11,21 @@ Running:
 
 ## Setup (Mac)
 xcode-select --install
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+<!-- sudo xcode-select -s /Applications/Xcode.app -->
+click run in terminal in the run section of qt creator
+added /usr/local/lib to my DYLD_LIBRARY_PATH
+use xcode, not ninja for cmake gen
+cmake doesnt seem to matter
+
 git submodule update --init --recursive
 brew reinstall spdlog cpr curl libusb
+brew install ninja
+in qt creator, add PATH+=/opt/homebrew/bin to environment var in preferences > kits > your kit > environment. Just click change and add that line.
+
+Troubleshooting:
+if it says something like c++ or C compile failed, check your $CC and $CXX variables. if these arent set, then update or reinstall xcode tools.
+
 mkdir build
 cd build
 cmake ..
