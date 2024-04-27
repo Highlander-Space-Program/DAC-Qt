@@ -50,7 +50,8 @@ int main(int argc, char *argv[])
 //  lj_sink.start_stream(100, 100, std::make_shared<InjectorTestStrategy>(pressureBroadcaster));
 
   QQmlApplicationEngine engine;
-  const QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath("DAC-Qt/Main.qml"));
+  QString path = QString::fromStdString(std::string(BUILD_DIR) + "/../DAC-Qt/Main.qml");
+  const QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
     &app, []() { QCoreApplication::exit(-1); },
     Qt::QueuedConnection);
@@ -60,9 +61,11 @@ int main(int argc, char *argv[])
 }
 
 Config read_config() {
-  QString path = QCoreApplication::applicationDirPath() + "/config.json";
-  spdlog::info("Trying to open config file at: {}", path.toStdString());
+// CMAKE_CURRENT_BINARY_DIR
+  std::cout << "Build directory: " << BUILD_DIR << std::endl;
+  QString path = QString::fromStdString(std::string(BUILD_DIR) + "/config.json");
   QFile f(path);
+  // QFile f(path);
 
   // QFile f("config.json");
   if(f.open(QIODevice::ReadOnly)) {

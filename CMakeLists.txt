@@ -1,35 +1,11 @@
 cmake_minimum_required(VERSION 3.16)
 project(DAC-Qt VERSION 0.1 LANGUAGES CXX)
 
-# if(APPLE)
-#   if(NOT DEFINED CMAKE_OSX_SYSROOT)
-#     message(FATAL_ERROR "Cannot check SDK version if CMAKE_OSX_SYSROOT"
-#       " is not defined."
-#     )
-#   endif()
+set(BUILD_DIR ${CMAKE_BINARY_DIR})
 
-#   set(DYLD_LIBRARY_PATH "${DYLD_LIBRARY_PATH}:/usr/local/lib")
-
-#   execute_process(
-#     COMMAND xcrun --sdk "${CMAKE_OSX_SYSROOT}" --show-sdk-version
-#     OUTPUT_VARIABLE sdk_version
-#     OUTPUT_STRIP_TRAILING_WHITESPACE
-#   )
-
-#   if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
-#     if(sdk_version VERSION_LESS 14.2)
-#       message(FATAL_ERROR "This project requires at least iPhoneOS SDK"
-#         " 14.2, but got ${sdk_version} instead."
-#       )
-#     endif()
-#   else()
-#     if(sdk_version VERSION_LESS 11.0)
-#       message(FATAL_ERROR "This project requires at least macOS SDK"
-#         " 11.0, but got ${sdk_version} instead."
-#       )
-#     endif()
-#   endif()
-# endif()
+# Configure a header file to pass some of the CMake settings to the source code
+configure_file(Config.h.in ${CMAKE_BINARY_DIR}/Config.h)
+include_directories(${CMAKE_BINARY_DIR})
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -58,6 +34,7 @@ message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
 message(STATUS "CMAKE_INCLUDE_PATH: ${CMAKE_INCLUDE_PATH}")
 message(STATUS "CMAKE_LIBRARY_PATH: ${CMAKE_LIBRARY_PATH}")
 include_directories(${CMAKE_INCLUDE_PATH})
+include_directories(${CMAKE_BINARY_DIR})
 
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}")
 # list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/generators")
