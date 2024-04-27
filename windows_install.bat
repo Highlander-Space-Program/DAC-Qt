@@ -1,0 +1,1 @@
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File \"" + $PWD.Path.Replace('\', '\\') + "\\setupDAC-Qt.ps1\"' -Verb RunAs}"

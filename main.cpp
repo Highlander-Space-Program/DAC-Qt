@@ -2,7 +2,9 @@
 #include <QQmlApplicationEngine>
 #include <QJsonDocument>
 #include <QFile>
+#include <QDir>
 
+#include "sinks/LabJackSink.h"
 #include "broadcast/Broadcaster.h"
 #include "models/ForceData.h"
 #include "models/TemperatureData.h"
@@ -20,7 +22,8 @@ Config read_config();
 int main(int argc, char *argv[])
 {
   spdlog::info("Starting DAC-Qt");
-
+  QApplication app(argc, argv);
+  
   Config config = read_config();
 
   auto forceBroadcaster = Broadcaster<ForceData>::getInstance();
@@ -79,10 +82,10 @@ int main(int argc, char *argv[])
   lj_sink.openS(config.labjack.device_type, config.labjack.identifier, config.labjack.connection_type);
   lj_sink.start_stream(1, 10, coldFlowStrategy);
 
-  QApplication app(argc, argv);
-
   QQmlApplicationEngine engine;
-  const QUrl url(u"qrc:/DAC-Qt/Main.qml"_qs);
+  // QString path = QString::fromStdString(std::string(BUILD_DIR) + "/../DAC-Qt/Main.qml");
+  QString path = QString::fromStdString("../DAC-Qt/Main.qml");
+  const QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
     &app, []() { QCoreApplication::exit(-1); },
     Qt::QueuedConnection);
@@ -92,6 +95,12 @@ int main(int argc, char *argv[])
 }
 
 Config read_config() {
+// CMAKE_CURRENT_BINARY_DIR
+  // std::cout << "Build directory: " << BUILD_DIR << std::endl;
+  // QString path = QString::fromStdString(std::string(BUILD_DIR) + "/config.json");
+  // QFile f(path);
+  // QFile f(path);
+
   QFile f("config.json");
   if(f.open(QIODevice::ReadOnly)) {
     Config config;
