@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
   QQmlApplicationEngine engine;
   // QString path = QString::fromStdString(std::string(BUILD_DIR) + "/../DAC-Qt/Main.qml");
-  QString path = QString::fromStdString("./DAC-Qt/Main.qml");
+  QString path = QString::fromStdString("../DAC-Qt/Main.qml");
   const QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
     &app, []() { QCoreApplication::exit(-1); },
