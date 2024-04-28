@@ -5,8 +5,11 @@
     "connection_type" : "ANY"
   },
   "influx" : {
-    "address" : "https://localhost:8086/",
-    "db" : "<bucket>",
+    "protocol" : "http",
+    "address" : "localhost",
+    "port" : "8086",
+    "db" : "poseidon",
+    "measurement": "<measurement>",
     "token" : "<token>"
   }
 }

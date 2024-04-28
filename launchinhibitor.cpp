@@ -38,13 +38,13 @@ void LaunchInhibitor::updatePTValues(std::shared_ptr<Broadcaster<PressureData>> 
 void LaunchInhibitor::updateLCValues(std::shared_ptr<Broadcaster<ForceData>> &massBroadcaster) {
     massBroadcaster->subscribe([this](const ForceData *data) {
         if (data->label == "LC-01") {
-            thrustLoad = data->mass;
+            thrustLoad = data->force();
         }
         if (data->label == "LC-02") {
-            ethTankLoad = data->mass;
+            ethTankLoad = data->force();
         }
         if (data->label == "LC-03") {
-            nosTankLoad = data->mass;
+            nosTankLoad = data->force();
         }
     });
 }
