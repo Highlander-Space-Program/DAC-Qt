@@ -1,24 +1,20 @@
-#ifndef DAC_QT_CONFIG_H
-#define DAC_QT_CONFIG_H
+// #pragma once
 
-#include <string>
+// #define BUILD_DIR "@BUILD_DIR@"
 
-class Config {
-public:
-  class LabJackConfig {
-  public:
-    std::string identifier;
-    std::string device_type;
-    std::string connection_type;
-  };
-  class InfluxConfig {
-  public:
-    std::string address;
-    std::string token;
-  };
+// class Config {
+//   public:
+//     struct LabJackConfig {
+//         std::string identifier;
+//         std::string device_type;
+//         std::string connection_type;
+//     };
 
-  LabJackConfig labjack;
-  InfluxConfig influx;
-};
+//     struct InfluxConfig {
+//         std::string address;
+//         std::string token;
+//     };
 
-#endif //DAC_QT_CONFIG_H
+//     LabJackConfig labjack;
+//     InfluxConfig influx;
+// };
