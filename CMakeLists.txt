@@ -48,7 +48,6 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES components/settings/SettingsTextInput.qml
     QML_FILES components/settings/SettingsComboInput.qml
     QML_FILES components/settings/SettingsDivider.qml
-    SOURCES Config.h
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
     SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp
     SOURCES sinks/LabJackSinkStrategy.h
@@ -81,8 +80,6 @@ endif()
 target_link_libraries(appDAC-Qt
     PRIVATE Qt6::Quick Qt6::Charts LabJackM spdlog::spdlog InfluxData::InfluxDB
 )
-
-configure_file("config.json" "config.json" COPYONLY)
 
 include(GNUInstallDirs)
 install(TARGETS appDAC-Qt

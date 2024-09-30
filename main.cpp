@@ -1,41 +1,58 @@
 #include <QApplication>
 #include <QQmlContext>
 #include <QQmlApplicationEngine>
-#include <QJsonDocument>
 #include <QFile>
+
+#include <InfluxDBFactory.h>
+#include <spdlog/spdlog.h>
 
 #include "broadcast/Broadcaster.h"
 #include "models/ForceData.h"
 #include "models/TemperatureData.h"
 #include "models/PressureData.h"
-#include "Config.h"
 #include "sinks/LabJackSink.h"
 #include "sinks/ColdFlowSinkStrategy.h"
 #include "mainwindow.h"
-
-#include <spdlog/spdlog.h>
-
 #include "subscriberqtadapter.h"
-
-Config read_config();
-
-#include <InfluxDBFactory.h>
 
 int main(int argc, char *argv[])
 {
   spdlog::info("Starting DAC-Qt");
 
-  Config config = read_config();
+  QCoreApplication::setOrganizationName("Highlander Space Program");
+  QCoreApplication::setOrganizationDomain("https://github.com/Highlander-Space-Program/");
+  QCoreApplication::setApplicationName("DAQ-Qt");
+
+  QSettings settings;
+  settings.setValue("labjack/identifier", settings.value("labjack/identifier", "ANY"));
+  settings.setValue("labjack/device_type", settings.value("labjack/device_type", "ANY"));
+  settings.setValue("labjack/connection_type", settings.value("labjack/connection_type", "ANY"));
+  settings.setValue("influx/protocol", settings.value("influx/protocol", "http"));
+  settings.setValue("influx/address", settings.value("influx/address", "localhost"));
+  settings.setValue("influx/port", settings.value("influx/port", "8086"));
+  settings.setValue("influx/db", settings.value("influx/db", ""));
+  settings.setValue("influx/measurement", settings.value("influx/measurement", ""));
+  settings.setValue("influx/token", settings.value("influx/token", ""));
 
   auto forceBroadcaster = Broadcaster<ForceData>::getInstance();
   auto temperatureBroadcaster = Broadcaster<TemperatureData>::getInstance();
   auto pressureBroadcaster = Broadcaster<PressureData>::getInstance();
 
   std::stringstream ss;
-  ss << config.influx.protocol << "://" << config.influx.token << '@' << config.influx.address << ':' << config.influx.port << "?db=" << config.influx.db;
-  std::cout << "Connection string: " << ss.str() << std::endl;
-  std::string measurement = config.influx.measurement;
-  std::cout <<  measurement << std::endl;
+  ss << settings.value("influx/protocol").toString().toStdString()
+     << "://"
+     << settings.value("influx/token").toString().toStdString()
+     << '@'
+     << settings.value("influx/address").toString().toStdString()
+     << ':'
+     << settings.value("influx/port").toString().toStdString()
+     << "?db="
+     << settings.value("influx/db").toString().toStdString();
+  std::string measurement = settings.value("influx/measurement").toString().toStdString();
+
+  spdlog::info("InfluxDB connection string: {}", ss.str());
+  spdlog::info("InfluxDB measurement: {}", measurement);
+
   auto db = influxdb::InfluxDBFactory::Get(ss.str());
   pressureBroadcaster->subscribe([&db, &measurement](const PressureData *data){
     try {
@@ -80,14 +97,13 @@ int main(int argc, char *argv[])
                                                                  forceBroadcaster);
 
   LabJackSink lj_sink;
-//  lj_sink.openS(config.labjack.device_type, config.labjack.identifier, config.labjack.connection_type);
+//  lj_sink.openS(settings.value("labjack/device_type", settings.value("labjack/identifier", settings.value("labjack/connection_type");
 //  lj_sink.start_stream(1, 10, coldFlowStrategy);
 
   //PressureSubscriberQtAdapter pressureQtSubscriber(*pressureBroadcaster);
   PressureSubscriberQtAdapter pressureQtSubscriber;
 
   QApplication app(argc, argv);
-
   MainWindow main_window_context;
 
   QQmlApplicationEngine engine;
@@ -99,25 +115,4 @@ int main(int argc, char *argv[])
   engine.load(url);
 
   return app.exec();
-}
-
-Config read_config() {
-  QFile f("config.json");
-  if(f.open(QIODevice::ReadOnly)) {
-    Config config;
-    QJsonDocument json = QJsonDocument::fromJson(f.readAll());
-    config.labjack.identifier = json["labjack"]["identifier"].toString().toStdString();
-    config.labjack.device_type = json["labjack"]["device_type"].toString().toStdString();
-    config.labjack.connection_type= json["labjack"]["connection"].toString().toStdString();
-    config.influx.protocol = json["influx"]["protocol"].toString().toStdString();
-    config.influx.address = json["influx"]["address"].toString().toStdString();
-    config.influx.port = json["influx"]["port"].toString().toStdString();
-    config.influx.token = json["influx"]["token"].toString().toStdString();
-    config.influx.db = json["influx"]["db"].toString().toStdString();
-    config.influx.measurement = json["influx"]["measurement"].toString().toStdString();
-    return config;
-  } else {
-    spdlog::error("Could not open config.json: {}", f.errorString().toStdString());
-    // TODO handle (throw or show dialog)
-  }
 }
