@@ -43,6 +43,11 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES Setup.qml
     QML_FILES components/visualization/MockChart.qml
     QML_FILES components/navigation/NavButton.qml
+    QML_FILES components/settings/SettingsSectionLabJack.qml
+    QML_FILES components/settings/SettingsSectionInflux.qml
+    QML_FILES components/settings/SettingsTextInput.qml
+    QML_FILES components/settings/SettingsComboInput.qml
+    QML_FILES components/settings/SettingsDivider.qml
     SOURCES Config.h
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
     SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp
@@ -50,6 +55,9 @@ qt_add_qml_module(appDAC-Qt
     SOURCES sinks/ColdFlowSinkStrategy.cpp sinks/ColdFlowSinkStrategy.h
     SOURCES broadcast/Sink.h broadcast/Broadcaster.h
     SOURCES launchinhibitor.h launchinhibitor.cpp
+    SOURCES mainwindow.h mainwindow.cpp
+    QML_FILES Chart.qml
+    SOURCES subscriberqtadapter.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

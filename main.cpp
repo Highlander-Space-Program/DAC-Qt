@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QQmlContext>
 #include <QQmlApplicationEngine>
 #include <QJsonDocument>
 #include <QFile>
@@ -10,8 +11,11 @@
 #include "Config.h"
 #include "sinks/LabJackSink.h"
 #include "sinks/ColdFlowSinkStrategy.h"
+#include "mainwindow.h"
 
 #include <spdlog/spdlog.h>
+
+#include "subscriberqtadapter.h"
 
 Config read_config();
 
@@ -76,16 +80,22 @@ int main(int argc, char *argv[])
                                                                  forceBroadcaster);
 
   LabJackSink lj_sink;
-  lj_sink.openS(config.labjack.device_type, config.labjack.identifier, config.labjack.connection_type);
-  lj_sink.start_stream(1, 10, coldFlowStrategy);
+//  lj_sink.openS(config.labjack.device_type, config.labjack.identifier, config.labjack.connection_type);
+//  lj_sink.start_stream(1, 10, coldFlowStrategy);
+
+  //PressureSubscriberQtAdapter pressureQtSubscriber(*pressureBroadcaster);
+  PressureSubscriberQtAdapter pressureQtSubscriber;
 
   QApplication app(argc, argv);
+
+  MainWindow main_window_context;
 
   QQmlApplicationEngine engine;
   const QUrl url(u"qrc:/DAC-Qt/Main.qml"_qs);
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
     &app, []() { QCoreApplication::exit(-1); },
     Qt::QueuedConnection);
+    engine.rootContext()->setContextProperty("context", &main_window_context);
   engine.load(url);
 
   return app.exec();

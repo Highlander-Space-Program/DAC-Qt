@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtCharts
 
 Item {
   id: root
@@ -19,37 +20,61 @@ Item {
         anchors.fill: parent
         columns: 3
 
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
-        MockChart {
+        Chart {
+          title: "Pressure"
           Layout.fillWidth: true
           Layout.fillHeight: true
+
+          subscriber: context.psiSub
         }
         MockChart {
           Layout.fillWidth: true
