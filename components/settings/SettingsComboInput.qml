@@ -10,8 +10,19 @@ Item {
   implicitHeight: 40
 
   property string key
+  property string group
+
+  property string defaultValue
+  property alias value: input.currentText
+  property alias model: input.model
   property alias name: display_name.text
   property alias input: input
+
+  Component.onCompleted: {
+    if (defaultValue) {
+      input.currentIndex = input.indexOfValue(defaultValue);
+    }
+  }
 
   RowLayout {
     anchors.fill: parent

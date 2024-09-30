@@ -23,7 +23,8 @@ int main(int argc, char *argv[])
   QCoreApplication::setOrganizationDomain("https://github.com/Highlander-Space-Program/");
   QCoreApplication::setApplicationName("DAQ-Qt");
 
-  QSettings settings;
+  QSettingsWrapper settings;
+  // Set empty keys to default values
   settings.setValue("labjack/identifier", settings.value("labjack/identifier", "ANY"));
   settings.setValue("labjack/device_type", settings.value("labjack/device_type", "ANY"));
   settings.setValue("labjack/connection_type", settings.value("labjack/connection_type", "ANY"));
@@ -104,7 +105,7 @@ int main(int argc, char *argv[])
   PressureSubscriberQtAdapter pressureQtSubscriber;
 
   QApplication app(argc, argv);
-  MainWindow main_window_context;
+  MainWindow main_window_context(&settings);
 
   QQmlApplicationEngine engine;
   const QUrl url(u"qrc:/DAC-Qt/Main.qml"_qs);

@@ -38,13 +38,11 @@ qt_add_qml_module(appDAC-Qt
     VERSION 1.0
     QML_FILES Main.qml
     QML_FILES Visualization.qml
-    QML_FILES Settings.qml
+    QML_FILES SettingsView.qml
     QML_FILES Navigation.qml
     QML_FILES Setup.qml
     QML_FILES components/visualization/MockChart.qml
     QML_FILES components/navigation/NavButton.qml
-    QML_FILES components/settings/SettingsSectionLabJack.qml
-    QML_FILES components/settings/SettingsSectionInflux.qml
     QML_FILES components/settings/SettingsTextInput.qml
     QML_FILES components/settings/SettingsComboInput.qml
     QML_FILES components/settings/SettingsDivider.qml

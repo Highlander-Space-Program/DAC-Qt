@@ -9,8 +9,11 @@ Item {
   implicitHeight: 40
 
   property string key
+  property string group
+
   property alias name: display_name.text
   property alias input: input
+  property alias value: input.text
 
   RowLayout {
     anchors.fill: parent

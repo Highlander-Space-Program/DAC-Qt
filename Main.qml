@@ -95,7 +95,8 @@ ApplicationWindow {
       Layout.preferredWidth: 88
 
       Item {
-        Settings {
+        SettingsView {
+          settings: context.settings
           anchors.fill: parent
           anchors.leftMargin: 64
           anchors.rightMargin: 64

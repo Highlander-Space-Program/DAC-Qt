@@ -5,7 +5,7 @@ Item {
 
   anchors.left: parent.left
   anchors.right: parent.right
-  height: 16
+  height: 26
 
   property alias divider: divider
 
