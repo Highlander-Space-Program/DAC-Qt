@@ -45,7 +45,6 @@ public:
     }
   }
   void broadcast(std::vector<T*> items) {
-    std::cout << "Broadcasting\n";
       for (auto& item : items) {
           broadcast(item);
       }
