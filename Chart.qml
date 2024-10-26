@@ -5,27 +5,36 @@ Item {
   id: root
 
   required property Subscriber subscriber
-  property alias title: chart.title
+  property alias title: view.title
 
+  Connections {
+    target: subscriber
+    function onStartChanged(start) { axis_x.max = start; }
+    function onEndChanged(end) { axis_x.min = end; }
+  }
 
   ChartView {
-    id: chart
+    id: view
     anchors.fill: parent
 
     legend.visible: false
     theme: ChartView.ChartThemeDark
 
-    ValueAxis {
+    DateTimeAxis {
       id: axis_x
+      min: subscriber.end
+      max: subscriber.start
     }
     ValueAxis {
       id: axis_y
+      min: -1
+      max: 1
     }
     LineSeries {
       id: line_series
-      name: "pressure"
       axisX: axis_x
       axisY: axis_y
+      useOpenGL: true
     }
 
     Timer {
@@ -34,9 +43,8 @@ Item {
       repeat: true
       interval: 1 / 60 * 1000
       onTriggered: {
-        subscriber.update(chart.series(0));
+        subscriber.update(view.series(0));
       }
     }
-
   }
 }

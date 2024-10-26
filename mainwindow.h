@@ -35,9 +35,9 @@ Q_PROPERTY(QSettingsWrapper* settings READ settings NOTIFY settingsChanged)
 Q_PROPERTY(const PressureSubscriberQtAdapter* psiSub READ psiSub CONSTANT)
 public:
   MainWindow() =default;
-  MainWindow(QSettingsWrapper *settings) : settings_(settings) { }
+  MainWindow(QSettingsWrapper *settings, PressureSubscriberQtAdapter *psiSub) : settings_(settings), psiSub_(psiSub)  { }
 
-  const PressureSubscriberQtAdapter* psiSub() const { return &psiSub_; }
+  const PressureSubscriberQtAdapter* psiSub() const { return psiSub_; }
   QSettingsWrapper* settings() { return settings_; }
 
 signals:
@@ -45,7 +45,7 @@ signals:
 
 private:
   QSettingsWrapper *settings_ = nullptr;
-  PressureSubscriberQtAdapter psiSub_;
+  PressureSubscriberQtAdapter *psiSub_;
 };
 
 #endif // MAINWINDOW_H

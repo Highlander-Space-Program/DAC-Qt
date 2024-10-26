@@ -14,6 +14,7 @@
 #include "sinks/ColdFlowSinkStrategy.h"
 #include "mainwindow.h"
 #include "subscriberqtadapter.h"
+#include "sinks/SineSink.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,29 +56,29 @@ int main(int argc, char *argv[])
   spdlog::info("InfluxDB measurement: {}", measurement);
 
   auto db = influxdb::InfluxDBFactory::Get(ss.str());
-  pressureBroadcaster->subscribe([&db, &measurement](const PressureData *data){
-    try {
-      db->write(influxdb::Point{measurement}
-                        .addField("pressure", data->pressure())
-                        .addField("voltage", data->voltage())
-                        .addTag("sensor", data->label)
-      );
-    } catch (influxdb::InfluxDBException &e) {
-      std::cerr << e.what() << std::endl;
-    }
-  });
-  forceBroadcaster->subscribe([&db, &measurement](const ForceData *data){
-    try {
-      db->write(influxdb::Point{measurement}
-                        .addField("force", data->force())
-                        .addField("voltage", data->voltage())
-                        .addTag("sensor", data->label)
-      );
-    } catch (influxdb::InfluxDBException &e) {
-      std::cerr << e.what() << std::endl;
-    }
-  });
-
+//  pressureBroadcaster->subscribe([&db, &measurement](const PressureData *data){
+//    try {
+//      db->write(influxdb::Point{measurement}
+//                        .addField("pressure", data->pressure())
+//                        .addField("voltage", data->voltage())
+//                        .addTag("sensor", data->label)
+//      );
+//    } catch (influxdb::InfluxDBException &e) {
+//      std::cerr << e.what() << std::endl;
+//    }
+//  });
+//  forceBroadcaster->subscribe([&db, &measurement](const ForceData *data){
+//    try {
+//      db->write(influxdb::Point{measurement}
+//                        .addField("force", data->force())
+//                        .addField("voltage", data->voltage())
+//                        .addTag("sensor", data->label)
+//      );
+//    } catch (influxdb::InfluxDBException &e) {
+//      std::cerr << e.what() << std::endl;
+//    }
+//  });
+//
   auto pt02Data = std::make_shared<CalibratedPressureData>(425.37, -222.30); // PT 6
   auto pt03Data = std::make_shared<CalibratedPressureData>(410.41, -207.26); // PT 5
   auto pt04Data = std::make_shared<PressureData>(0, 1600, 0.5, 4.5); // PT 3
@@ -101,11 +102,12 @@ int main(int argc, char *argv[])
 //  lj_sink.openS(settings.value("labjack/device_type", settings.value("labjack/identifier", settings.value("labjack/connection_type");
 //  lj_sink.start_stream(1, 10, coldFlowStrategy);
 
-  //PressureSubscriberQtAdapter pressureQtSubscriber(*pressureBroadcaster);
-  PressureSubscriberQtAdapter pressureQtSubscriber;
+  PressureSubscriberQtAdapter pressureQtSubscriber(*pressureBroadcaster);
+
+  SineSink sine_sink(*pressureBroadcaster);
 
   QApplication app(argc, argv);
-  MainWindow main_window_context(&settings);
+  MainWindow main_window_context(&settings, &pressureQtSubscriber);
 
   QQmlApplicationEngine engine;
   const QUrl url(u"qrc:/DAC-Qt/Main.qml"_qs);

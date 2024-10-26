@@ -17,64 +17,53 @@ class PressureSubscriberQtAdapter : public QObject
 {
   Q_OBJECT
   QML_NAMED_ELEMENT(Subscriber)
-  Q_PROPERTY(const QQueue<QPointF>* data READ data NOTIFY dataChanged)
+  Q_PROPERTY(const QList<QPointF>* data READ data NOTIFY dataChanged)
+  Q_PROPERTY(QDateTime start READ start NOTIFY startChanged)
+  Q_PROPERTY(QDateTime end READ end NOTIFY endChanged)
 public:
-  explicit PressureSubscriberQtAdapter (QObject *parent = nullptr) {
-    float x = 0.0f;
-    for (size_t i=0; i<10000; i++) {
-      data_.push_back(QPointF(QDateTime::currentDateTime().toMSecsSinceEpoch()+i*1000, sin(x)));
-      x += 0.1;
-    }
+  explicit PressureSubscriberQtAdapter (QObject *parent = nullptr) : QObject(parent) { }
+  explicit PressureSubscriberQtAdapter (Broadcaster<PressureData> &broadcaster, QObject *parent = nullptr) : QObject(parent) {
+    broadcaster.subscribe([this](const PressureData *data) {
+      static int i = 0, decimation = 10;
+      if (data && !i) {
+        while (!data_.empty() && data_.front().x() < (data->timestamp-duration_).time_since_epoch().count()) { data_.pop_front(); data_.shrink_to_fit(); }
+        this->data_.push_back(QPointF(data->timestamp.time_since_epoch().count(), data->pressure()));
 
+        start_ = QDateTime::fromMSecsSinceEpoch(data->timestamp.time_since_epoch().count());
+        end_= QDateTime::fromMSecsSinceEpoch((data->timestamp-duration_).time_since_epoch().count());
+        emit startChanged(start_);
+        emit endChanged(end_);
+      }
+      i = (i+1) % decimation;
+    });
   }
-//  explicit PressureSubscriberQtAdapter (Broadcaster<PressureData> &broadcaster, QObject *parent = nullptr) {
-//    auto& queue = this->data_;
-//    broadcaster.subscribe([&queue, this](const PressureData *data) {
-//      while (queue.length() >= this->max_size_) { data_.pop_back(); }
-//      queue.push_back(QPointF(data->timestamp.time_since_epoch().count(), data->data()));
-//    });
-//  }
 
-  const QQueue<QPointF>* data() const { return &data_; }
+  const QList<QPointF>* data() const { return &data_; }
+
+  QDateTime start() const { return start_; }
+  QDateTime end() const { return end_; }
 
 public slots:
   void update(QLineSeries *series) {
-    if (series) {
-      qint64 t = QDateTime::currentDateTime().toMSecsSinceEpoch();
-      double y = sin(2 * 3.14159 / 2000 * t);
+   if (series) {
+        series->replace(data_);
 
-      min_ = std::min(min_, y);
-      max_ = std::max(max_, y);
-      if (!series->attachedAxes().empty()) {
-        series->attachedAxes()[0]->setMin(start_);
-        series->attachedAxes()[0]->setMax(t);
-        series->attachedAxes()[1]->setMin(min_);
-        series->attachedAxes()[1]->setMax(max_);
-      }
-
-      series->append(t, y);
-
-//    while (!data_.empty()) {
-//      std::cout << data_.front().x() << ' ' << data_.front().y() << std::endl;
-//      series->append(data_.front());
-//      data_.pop_front();
-//    }
-
-      auto chart = series->chart();
-      chart->removeSeries(series);
-      chart->addSeries(series);
-    }
+       auto chart = series->chart();
+       chart->removeSeries(series);
+       chart->addSeries(series);
+   }
   }
 
 signals:
-  void dataChanged();
+  void dataChanged(const QList<QPointF>&);
+  void startChanged(const QDateTime);
+  void endChanged(const QDateTime);
 
 private:
-  QDateTime start_ = QDateTime::currentDateTime();
-  qint64 duration_ms = 60000;
-  qreal min_ = 0;
-  qreal max_ = 0;
-  QQueue<QPointF> data_;
+  std::chrono::milliseconds duration_ {10000};
+  QDateTime start_;
+  QDateTime end_;
+  QList<QPointF> data_;
 };
 
 #endif // SUBSCRIBERQTADAPTER_H

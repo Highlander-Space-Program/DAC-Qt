@@ -94,6 +94,8 @@ ApplicationWindow {
       Layout.row: 1
       Layout.preferredWidth: 88
 
+      Visualization { }
+
       Item {
         SettingsView {
           settings: context.settings
@@ -102,8 +104,6 @@ ApplicationWindow {
           anchors.rightMargin: 64
         }
       }
-
-      Visualization { }
     }
   }
 }

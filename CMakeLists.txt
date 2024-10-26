@@ -46,6 +46,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES components/settings/SettingsTextInput.qml
     QML_FILES components/settings/SettingsComboInput.qml
     QML_FILES components/settings/SettingsDivider.qml
+    SOURCES sinks/SineSink.cpp sinks/SineSink.h
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
     SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp
     SOURCES sinks/LabJackSinkStrategy.h
