@@ -46,6 +46,7 @@ qt_add_qml_module(appDAC-Qt
     QML_FILES components/settings/SettingsTextInput.qml
     QML_FILES components/settings/SettingsComboInput.qml
     QML_FILES components/settings/SettingsDivider.qml
+    QML_FILES Chart.qml
     SOURCES sinks/SineSink.cpp sinks/SineSink.h
     SOURCES models/ForceData.h models/PressureData.h models/TelemetryData.h models/TemperatureData.h
     SOURCES sinks/LabJackSink.h sinks/LabJackSink.cpp
@@ -54,7 +55,6 @@ qt_add_qml_module(appDAC-Qt
     SOURCES broadcast/Sink.h broadcast/Broadcaster.h
     SOURCES launchinhibitor.h launchinhibitor.cpp
     SOURCES mainwindow.h mainwindow.cpp
-    QML_FILES Chart.qml
     SOURCES subscriberqtadapter.h
 )
 
@@ -69,7 +69,7 @@ set_target_properties(appDAC-Qt PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-if (WIN32)
+if(WIN32)
     target_include_directories(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
     target_link_libraries(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
 else()
