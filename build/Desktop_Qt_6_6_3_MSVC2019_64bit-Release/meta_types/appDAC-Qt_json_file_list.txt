@@ -1,2 +1,0 @@
-C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/appDAC-Qt_autogen/include/../EWIEGA46WW/moc_mainwindow.cpp.json
-C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/appDAC-Qt_autogen/include/../EWIEGA46WW/moc_subscriberqtadapter.cpp.json
