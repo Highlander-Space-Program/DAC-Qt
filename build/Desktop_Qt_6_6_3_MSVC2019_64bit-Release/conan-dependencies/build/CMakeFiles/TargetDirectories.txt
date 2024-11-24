@@ -1,0 +1,2 @@
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/conan-dependencies/build/CMakeFiles/edit_cache.dir
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/conan-dependencies/build/CMakeFiles/rebuild_cache.dir

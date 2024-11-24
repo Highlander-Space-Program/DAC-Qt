@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="/DAC-Qt/">
+    <file alias="Main.qml">C:/Users/User/DAC-Qt/Main.qml</file>
+    <file alias="Visualization.qml">C:/Users/User/DAC-Qt/Visualization.qml</file>
+    <file alias="SettingsView.qml">C:/Users/User/DAC-Qt/SettingsView.qml</file>
+    <file alias="Navigation.qml">C:/Users/User/DAC-Qt/Navigation.qml</file>
+    <file alias="Setup.qml">C:/Users/User/DAC-Qt/Setup.qml</file>
+    <file alias="components/visualization/MockChart.qml">C:/Users/User/DAC-Qt/components/visualization/MockChart.qml</file>
+    <file alias="components/navigation/NavButton.qml">C:/Users/User/DAC-Qt/components/navigation/NavButton.qml</file>
+    <file alias="components/settings/SettingsTextInput.qml">C:/Users/User/DAC-Qt/components/settings/SettingsTextInput.qml</file>
+    <file alias="components/settings/SettingsComboInput.qml">C:/Users/User/DAC-Qt/components/settings/SettingsComboInput.qml</file>
+    <file alias="components/settings/SettingsDivider.qml">C:/Users/User/DAC-Qt/components/settings/SettingsDivider.qml</file>
+    <file alias="Chart.qml">C:/Users/User/DAC-Qt/Chart.qml</file>
+  </qresource>
+</RCC>
+

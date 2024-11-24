@@ -49,8 +49,6 @@ public slots:
         series->replace(data_);
 
        auto chart = series->chart();
-       chart->removeSeries(series);
-       chart->addSeries(series);
    }
   }
 

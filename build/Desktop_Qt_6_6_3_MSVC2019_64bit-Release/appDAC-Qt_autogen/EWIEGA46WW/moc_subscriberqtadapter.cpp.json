@@ -1,0 +1,112 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "Subscriber"
+                }
+            ],
+            "className": "PressureSubscriberQtAdapter",
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "data",
+                    "notify": "dataChanged",
+                    "read": "data",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "const QList<QPointF>*",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "name": "start",
+                    "notify": "startChanged",
+                    "read": "start",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QDateTime",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "name": "end",
+                    "notify": "endChanged",
+                    "read": "end",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QDateTime",
+                    "user": false
+                }
+            ],
+            "qualifiedClassName": "PressureSubscriberQtAdapter",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QList<QPointF>"
+                        }
+                    ],
+                    "name": "dataChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QDateTime"
+                        }
+                    ],
+                    "name": "startChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QDateTime"
+                        }
+                    ],
+                    "name": "endChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "series",
+                            "type": "QLineSeries*"
+                        }
+                    ],
+                    "name": "update",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "subscriberqtadapter.h",
+    "outputRevision": 68
+}

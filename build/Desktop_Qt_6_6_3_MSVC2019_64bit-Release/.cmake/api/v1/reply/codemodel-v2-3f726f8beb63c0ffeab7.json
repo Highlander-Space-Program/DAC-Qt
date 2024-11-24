@@ -1,0 +1,169 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-16a02aae360c58ac9287.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "DAC-Qt",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint-Release-7a34c72747299ed91064.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_json-Release-c14bb2474306d8360251.json",
+					"name" : "all_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_module-Release-c7fda893969c1cbebf26.json",
+					"name" : "all_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmltyperegistrations::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmltyperegistrations-Release-780e76a8ec21f6bc10fa.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt-Release-3fecd07f4f5be684790d.json",
+					"name" : "appDAC-Qt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_autogen-Release-d5e0b593d328bc92b306.json",
+					"name" : "appDAC-Qt_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_autogen_timestamp_deps-Release-f5a6adb1c8d00dec3a4f.json",
+					"name" : "appDAC-Qt_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_qmlimportscan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_qmlimportscan-Release-9a84f31825a8fefe66ae.json",
+					"name" : "appDAC-Qt_qmlimportscan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_qmllint-Release-8db6a61b8e733655b395.json",
+					"name" : "appDAC-Qt_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_qmllint_json-Release-266ed8f1d5bbdcb660b0.json",
+					"name" : "appDAC-Qt_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_qmllint_module-Release-94405cfb9854375fb6ee.json",
+					"name" : "appDAC-Qt_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_qmltyperegistration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_qmltyperegistration-Release-e3b3a5f46f0d84570e43.json",
+					"name" : "appDAC-Qt_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appDAC-Qt_tooling::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appDAC-Qt_tooling-Release-66b7c8b84c0a91915287.json",
+					"name" : "appDAC-Qt_tooling",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release",
+		"source" : "C:/Users/User/DAC-Qt"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

@@ -3,8 +3,11 @@
 #include <QQmlApplicationEngine>
 #include <QFile>
 
+#include <QQuickStyle>
+
 #include <InfluxDBFactory.h>
 #include <spdlog/spdlog.h>
+#include <sstream>
 
 #include "broadcast/Broadcaster.h"
 #include "models/ForceData.h"
@@ -109,12 +112,14 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   MainWindow main_window_context(&settings, &pressureQtSubscriber);
 
+  QQuickStyle::setStyle("Fusion");
+
   QQmlApplicationEngine engine;
   const QUrl url(u"qrc:/DAC-Qt/Main.qml"_qs);
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
     &app, []() { QCoreApplication::exit(-1); },
     Qt::QueuedConnection);
-    engine.rootContext()->setContextProperty("context", &main_window_context);
+  engine.rootContext()->setContextProperty("context", &main_window_context);
   engine.load(url);
 
   return app.exec();

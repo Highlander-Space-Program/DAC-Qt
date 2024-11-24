@@ -1,0 +1,14 @@
+-rootPath
+C:/Users/User/DAC-Qt
+-cmake-output
+-output-file
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/.qt_plugins/Qt6_QmlPlugins_Imports_appDAC-Qt.cmake
+-importPath
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/DAC-Qt
+-importPath
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release
+-importPath
+C:/Qt/6.6.3/msvc2019_64/./qml
+-qrcFiles
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/.rcc/qmake_DAC-Qt.qrc
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Release/.rcc/appDAC-Qt_raw_qml_0.qrc

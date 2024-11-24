@@ -1,0 +1,10 @@
+-I
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Debug
+-I
+C:/Qt/6.6.3/msvc2019_64/./qml
+--resource
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Debug/.rcc/qmake_DAC-Qt.qrc
+--resource
+C:/Users/User/DAC-Qt/build/Desktop_Qt_6_6_3_MSVC2019_64bit-Debug/.rcc/appDAC-Qt_raw_qml_0.qrc
+--module
+DAC-Qt

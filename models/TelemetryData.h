@@ -8,7 +8,7 @@ class TelemetryData {
 public:
   virtual ~TelemetryData() =default;
   std::string label;
-  std::chrono::system_clock::time_point timestamp = std::chrono::system_clock::now();
+  std::chrono::high_resolution_clock::time_point timestamp = std::chrono::high_resolution_clock::now();
 };
 
 class VoltageData : public TelemetryData {

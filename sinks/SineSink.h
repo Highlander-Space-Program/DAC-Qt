@@ -13,7 +13,7 @@ public:
     t_ = std::thread([&](){
       using namespace std::chrono;
 
-      milliseconds step = 10ms;
+      milliseconds step = 100ms;
       uint16_t samples = 10;
 
       std::vector<PressureData*> data(samples);
@@ -21,9 +21,10 @@ public:
       while(!stop_) {
         for (size_t i=0; i<samples; i++, ts += step/samples) {
           milliseconds t = duration_cast<milliseconds>(ts.time_since_epoch());
-          double x = std::sin(M_2_PI/(1000ms).count() * (t.count()));
+          double x = std::sin(3.14159*2/(1000ms).count() * (t.count()));
 
           data[i] = new PressureData();
+          using namespace std::chrono;
           data[i]->timestamp = ts + milliseconds(i);
           data[i]->pressure(x);
           data[i]->voltage(x);
