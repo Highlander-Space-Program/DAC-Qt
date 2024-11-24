@@ -72,5 +72,24 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
+# IDE files
+.vscode
 .idea/
+
+# Build files
 cmake-build-debug/
+build/
+
+# CMake https://github.com/github/gitignore/blob/main/CMake.gitignore
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+CMakeUserPresets.json
