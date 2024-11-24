@@ -82,7 +82,7 @@ target_link_libraries(appDAC-Qt
 
 include(GNUInstallDirs)
 install(TARGETS appDAC-Qt
-    BUNDLE
+    BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
