@@ -2,6 +2,7 @@
 #define DAC_QT_COLDFLOWSINKSTRATEGY_H
 
 #include "LabJackSinkStrategy.h"
+#include <array>
 
 class ColdFlowSinkStrategy : public LabJackSinkStrategy {
 public:

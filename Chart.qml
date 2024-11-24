@@ -1,5 +1,7 @@
+import '.'
+
 import QtQuick
-import QtCharts
+import QtCharts 2.3
 
 Item {
   id: root
@@ -26,10 +28,12 @@ Item {
       max: subscriber.start
     }
     ValueAxis {
-      id: axis_y
-      min: -1
-      max: 1
+        id: axis_y
+        min: 1
+        max: 1000
+        labelFormat: "%.2f"
     }
+
     LineSeries {
       id: line_series
       axisX: axis_x

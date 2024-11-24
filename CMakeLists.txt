@@ -8,11 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(spdlog REQUIRED)
 find_package(InfluxDB REQUIRED)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Charts)
+find_package(Qt6 REQUIRED COMPONENTS Quick Charts QuickControls2)
 
 qt_standard_project_setup()
 
-option(PACKAGE_TESTS "Build with Tests" ON)
+option(PACKAGE_TESTS "Build with Tests" OFF)
 if(PACKAGE_TESTS)
     enable_testing()
     include(GoogleTest)
@@ -69,7 +69,7 @@ set_target_properties(appDAC-Qt PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-if(WIN32)
+if (WIN32)
     target_include_directories(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers")
     target_link_libraries(appDAC-Qt PRIVATE "C:/Program Files (x86)/LabJack/Drivers/64bit/LabJackM.lib")
 else()
@@ -77,7 +77,7 @@ else()
 endif()
 
 target_link_libraries(appDAC-Qt
-    PRIVATE Qt6::Quick Qt6::Charts spdlog::spdlog InfluxData::InfluxDB
+    PRIVATE Qt6::Quick Qt6::Charts Qt6::QuickControls2 spdlog::spdlog InfluxData::InfluxDB
 )
 
 include(GNUInstallDirs)

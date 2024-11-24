@@ -46,11 +46,11 @@ public:
 public slots:
   void update(QLineSeries *series) {
    if (series) {
-        series->replace(data_);
+      series->replace(data_);
 
-       auto chart = series->chart();
-       chart->removeSeries(series);
-       chart->addSeries(series);
+      auto chart = series->chart();
+      chart->removeSeries(series);
+      chart->addSeries(series);
    }
   }
 

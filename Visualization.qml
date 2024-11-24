@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtCharts
 
+import './components/visualization'
+
 Item {
   id: root
   GridLayout {
@@ -27,55 +29,55 @@ Item {
 
           subscriber: context.psiSub
         }
-        Chart {
-          title: "Pressure"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
+        // Chart {
+        //   title: "Pressure"
+        //   Layout.fillWidth: true
+        //   Layout.fillHeight: true
 
-          subscriber: context.psiSub
-        }
-        Chart {
-          title: "Pressure"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
+        //   subscriber: context.psiSub
+        // }
+        // Chart {
+        //   title: "Pressure"
+        //   Layout.fillWidth: true
+        //   Layout.fillHeight: true
 
-          subscriber: context.psiSub
-        }
-        Chart {
-          title: "Pressure"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
+        //   subscriber: context.psiSub
+        // }
+        // Chart {
+        //   title: "Pressure"
+        //   Layout.fillWidth: true
+        //   Layout.fillHeight: true
 
-          subscriber: context.psiSub
-        }
-        Chart {
-          title: "Pressure"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
+        //   subscriber: context.psiSub
+        // }
+        // Chart {
+        //   title: "Pressure"
+        //   Layout.fillWidth: true
+        //   Layout.fillHeight: true
 
-          subscriber: context.psiSub
-        }
-        Chart {
-          title: "Pressure"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
+        //   subscriber: context.psiSub
+        // }
+        // Chart {
+        //   title: "Pressure"
+        //   Layout.fillWidth: true
+        //   Layout.fillHeight: true
 
-          subscriber: context.psiSub
-        }
-        Chart {
-          title: "Pressure"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
+        //   subscriber: context.psiSub
+        // }
+        // Chart {
+        //   title: "Pressure"
+        //   Layout.fillWidth: true
+        //   Layout.fillHeight: true
 
-          subscriber: context.psiSub
-        }
-        Chart {
-          title: "Pressure"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
+        //   subscriber: context.psiSub
+        // }
+        // Chart {
+        //   title: "Pressure"
+        //   Layout.fillWidth: true
+        //   Layout.fillHeight: true
 
-          subscriber: context.psiSub
-        }
+        //   subscriber: context.psiSub
+        // }
         MockChart {
           Layout.fillWidth: true
           Layout.fillHeight: true

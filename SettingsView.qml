@@ -2,6 +2,9 @@ import QtCore
 import QtQuick
 import QtQuick.Controls
 
+import '.'
+import './components/settings/'
+
 Item {
   id: root
 
