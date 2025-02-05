@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from labjack import ljm
 #Name: Luis Bojorquez
-#Date: 01/28/2025
+#Date: 02/04/2025
 # Open the LabJack device
 handle = ljm.openS("T7", "USB", "ANY")
 
@@ -41,7 +41,7 @@ try:
         voltage = ljm.eReadName(handle, "AIN0")
 
         weight = -0.5151 * (voltage*pow(10,5)) + 2.0204
-        
+
         print("Voltage (V) Scaled by 10^5:", voltage*pow(10,5))
         print("Weight (kg):", weight)
         # Append the new temperature and time value
