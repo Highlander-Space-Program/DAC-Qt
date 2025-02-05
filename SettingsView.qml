@@ -108,6 +108,21 @@ Item {
           }
         }
       }
+      Button {
+          text: "Strategy"
+          font.pixelSize: 16
+          background: Rectangle {
+              implicitWidth: parent.implicitWidth
+              implicitHeight: parent.implicitHeight
+              color: "blue"
+              radius: 10
+          }
+          onClicked: {
+              Qt.application.showFullScreen();
+          }
+      }
+
+
 /* TODO
       Button {
         text: "Reset"
